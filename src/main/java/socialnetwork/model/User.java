@@ -10,8 +10,18 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+import java.util.List;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+
 @Entity
 public class User {
+
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private List<Publication> publications;
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
@@ -77,5 +87,13 @@ public class User {
     @Override
     public String toString() {
         return "User: " + name + " <" + email + ">";
+    }
+
+    public List<Publication> getPublications() {
+        return publications;
+    }
+    
+    public void setPublications(List<Publication> publications) {
+        this.publications = publications;
     }
 }

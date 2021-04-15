@@ -24,6 +24,14 @@ import org.springframework.validation.BindingResult;
 import socialnetwork.model.UserRepository;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import socialnetwork.model.PublicationRepository;
+
+import java.util.Optional;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.bind.annotation.PathVariable;
+
+
 @Controller
 @RequestMapping("/")
 public class MainController {
@@ -34,8 +42,11 @@ public class MainController {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private PublicationRepository publicationRepository;
+
     @GetMapping(path = "/")
-    public String mainView(Model model, Principal principal) {
+    public String mainView(Model model, Principal principal, Publication publication) {
         User profileUser = new User();
         profileUser.setName("Mary Jones");
         profileUser.setDescription("Addicted to social networks");
@@ -73,7 +84,21 @@ public class MainController {
         return "main_view";
     }
 
-    @GetMapping(path = "/profile_view")
+/*
+    @GetMapping(path = "/user/{userId}")
+    public String userView(@PathVariable int userId, Model model) {
+        Optional<User> userOpt = userRepository.findById(userId);
+        if (!userOpt.isPresent()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
+
+        }
+        User user = userOpt.get();
+        model.addAttribute("user", user);
+        model.addAttribute("publications", publicationRepository.findByUserOrderByTimestampDesc(user));
+        return "user_view";
+    }*/
+
+    @GetMapping(path = "/user_view")
     public String profileView(Model model) {
         User jorgeUser = new User();
         jorgeUser.setName("Jorge García");
@@ -101,7 +126,7 @@ public class MainController {
         model.addAttribute("publicationsJorge", publicationsJorge);
 
 
-        return "profile_view";
+        return "user_view";
     }
 
     @PostMapping(path = "/register")
@@ -132,6 +157,20 @@ public class MainController {
     @GetMapping(path = "/register")
     public String register(User user) {
         return "register";
+    }
+
+    @PostMapping(path = "/post")
+    public String postPublication(@Valid @ModelAttribute("publication") Publication publication,
+                                BindingResult bindingResult,
+                                Principal principal) {
+        if (bindingResult.hasErrors()) {
+            return "redirect:/";
+        }
+        User user = userRepository.findByEmail(principal.getName());
+        publication.setUser(user);
+        publication.setTimestamp(new Date());
+        publicationRepository.save(publication);
+        return "redirect:/";
     }
     
 }
