@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Social network</title>
+    <!-- CAMBIAR RUTA SOCIAL NETWORK -->
+
+    <link rel="stylesheet" href="socialnetwork.css" />
+    <!-- font awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <main>
+      <div class="containerForm">
+        <section class="infoExtra">
+          <!-- info adicional -->
+          <article class="infoRegister">
+            <span class="icon">
+              <i class="fas fa-check"></i>
+            </span>
+            <h4>Facil y para todos los públicos</h4>
+            <p>Introduce tu e-mail para crear cuenta.</p>
+          </article>
+          <!-- info adicional -->
+          <article class="infoRegister">
+            <span class="icon"> <i class="fas fa-people-arrows"></i> </span>
+            <h4>Disfruta de nuestra red social</h4>
+            <p>Inicia sesión para poder disfrutar de nuestro contenido.</p>
+          </article>
+          <!-- info adicional -->
+          <article class="infoRegister">
+            <span class="icon"> <i class="fas fa-clock"></i> </span>
+            <h4>Empieza cuanto antes a publicar</h4>
+            <p>¿A que estás esperando para unirte?.</p>
+          </article>
+        </section>
+        <form class="form" th:action="@{/register}" method="post">
+          <h2>crea tu cuenta <i class="fas fa-user-alt"></i></h2>
+          <div class="controlForm">
+            <label for="name"
+              >Nombre:
+              <input
+                type="text"
+                id="name"
+                class="form-input"
+                placeholder="por favor introduzca nombre completo"
+                name="name"
+            /></label>
+            <!-- name=name?  -->
+            <td th:if="${#fields.hasErrors('name')}" th:errors="*{name}">
+              Name Error
+            </td>
+          </div>
+          <div class="controlForm">
+            <label for="email"
+              >Email:
+              <input
+                type="email"
+                id="email"
+                class="form-input"
+                placeholder="introduzca email completo"
+                name="username"
+                required
+            /></label>
+            <td th:if="${#fields.hasErrors('email')}" th:errors="*{email}">
+              Email Error
+            </td>
+          </div>
+          <div class="controlForm">
+            <label for="pasword"
+              >Contraseña:
+              <input
+                type="password"
+                id="pasword"
+                class="form-input"
+                placeholder="introduzca contraseña"
+                name="password"
+                required
+            /></label>
+            <td
+              th:if="${#fields.hasErrors('password')}"
+              th:errors="*{password}"
+            >
+              Password Error
+            </td>
+          </div>
+          <div class="controlForm">
+            <label
+              >Confirmar Contraseña:
+              <input
+                type="password"
+                class="form-input"
+                placeholder="repita contraseña"
+                name="passwordRepeat"
+                required
+            /></label>
+          </div>
+          <div>
+            <button type="submit" value="Sign Up" class="btn">Registrar</button>
+          </div>
+        </form>
+      </div>
+    </main>
+  </body>
+</html>

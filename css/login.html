@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+  <head>
+    <title>Sign-in</title>
+    <!-- CAMBIAR RUTA SOCIAL NETWORK -->
+    <link rel="stylesheet" href="socialnetwork.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <main>
+      <div class="containerForm">
+        <section class="infoExtra">
+          <!-- info adicional -->
+          <article class="infoRegister">
+            <span class="icon">
+              <i class="fas fa-check"></i>
+            </span>
+            <h4>¿Ya tienes cuenta?</h4>
+            <p>Introduce tu e-mail y contraseña para acceder a tu perfil.</p>
+          </article>
+          <!-- info adicional -->
+          <article class="infoRegister">
+            <span class="icon"> <i class="fas fa-people-arrows"></i> </span>
+            <h4>Disfruta de nuestra red social</h4>
+            <p>Inicia sesión para poder disfrutar de nuestro contenido.</p>
+          </article>
+          <!-- info adicional -->
+          <article class="infoRegister">
+            <span class="icon"><i class="fas fa-question"></i></span>
+            <h4>¿No tienes cuenta?</h4>
+            <p>¿A que estás esperando para crear una?</p>
+            <br />
+            <br />
+            <div style="color: red" th:if="${param.error}">
+              Invalid username and password.
+            </div>
+            <div style="color: red" th:if="${param.logout}">
+              You have been logged out.
+            </div>
+            <div style="color: red" th:if="${param.registered}">
+              Your new user has been registered.
+            </div>
+          </article>
+        </section>
+
+        <form class="form" th:action="@{/login}" method="post">
+          <h2>inicio de sesion <i class="fas fa-user-alt"></i></h2>
+          <div class="controlForm">
+            <label
+              >Email:
+              <input
+                type="email"
+                class="form-input"
+                placeholder="introduzca email completo"
+                name="username"
+                required
+            /></label>
+          </div>
+          <div class="controlForm">
+            <label
+              >Password:
+              <input
+                type="password"
+                class="form-input"
+                placeholder="introduzca contraseña"
+                name="password"
+                required
+            /></label>
+          </div>
+          <div>
+            <button type="submit" value="Sign In" class="btn">Iniciar</button>
+          </div>
+          <div>
+            <br />
+            <a href="/register.html"
+              ><button class="btn">Registrarse</button></a
+            >
+          </div>
+        </form>
+      </div>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <title>Social network</title>
+  <link rel="stylesheet" href="stylePerfil.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" />
+</head>
+
+<body>
+  <h1 class="section-title">PERFIL</h1>
+  <section>
+    <article class="card">
+      <header></header>
+      <div id="usr_photo" class="img">foto aqui</div>
+      <div></div>
+      <h4>
+        <div class="DaniUser" th:text="${DaniUser.getName()}">
+          Nombre usuario
+        </div>
+      </h4>
+      <P>Últimas publicaciones</P>
+      <div class="publicationsDani">
+        <div class="publication" th:each="publication : ${publicationsDani}">
+          <div class="publication_meta">
+            <span class="user" th:text="${publication.getUser().getName()}">Pepe</span>
+            <span class="publication_restricted" th:if="${publication.isRestricted()}">restricted</span>
+            <span class="publication_public" th:if="${!publication.isRestricted()}">public</span>
+            <span class="timestamp" th:text="${publication.getTimestamp()}">15 de marzo de 2021</span>
+          </div>
+          <div class="publication_text" th:text="${publication.getText()}">
+            El texto del mensaje
+          </div>
+        </div>
+      </div>
+
+      <div th:text="${#authentication.principal.username}">User name here</div>
+
+
+   <br>
+
+      <button class="btn">
+      <form th:action="@{/logout}" method="post">
+        <input type="submit" value="Sign Out" />
+      </form>
+     </button>
+      <button type="button" id="follow" class="btn">Seguir</button>
+    </article>
+  </section>
+</body>
+
+</html>

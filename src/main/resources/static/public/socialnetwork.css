@@ -1,0 +1,151 @@
+*,
+::after,
+::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  background: #c5bdeb;
+  color: #1b294d;
+  line-height: 1.5;
+  font-size: 0.875rem;
+}
+ul {
+  list-style-type: none;
+}
+a {
+  text-decoration: none;
+}
+
+.publication .user {
+  font-weight: bold;
+}
+
+.publication .timestamp {
+  font-style: italic;
+}
+
+.publication {
+  margin-top: 1em;
+  margin-bottom: 1em;
+  background-color: rgb(rgb(40, 230, 236) (138, 23, 23), green, blue);
+}
+
+.publication_text {
+  font-size: larger;
+}
+
+#follow {
+  background-color: blue;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  color: white;
+}
+/*  */
+/* REGISTER */
+/*  */
+
+.form h2 {
+  margin-bottom: 2rem;
+  font-weight: 500;
+  font-size: 2rem;
+  letter-spacing: 0.1rem;
+  line-height: 1.25;
+  text-transform: capitalize;
+}
+.controlForm {
+  margin-bottom: 2rem;
+}
+.controlForm label {
+  display: block;
+  text-transform: capitalize;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+.form-input {
+  border: 1px solid #cdc8e9;
+  border-radius: 0.25rem;
+  padding: 1.25rem;
+  width: 100%;
+  color: #6e63b1;
+  font-size: 1rem;
+}
+.form-input::placeholder {
+  color: #787394;
+  text-transform: capitalize;
+}
+
+/* parte izq de la pantalla */
+.section-title {
+  text-align: center;
+  margin: 4rem 0 6rem 0;
+}
+/* estilos definidos en su media quierie */
+.infoExtra {
+  display: none;
+}
+main {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.containerForm {
+  background: #fff;
+  padding: 2.5rem;
+  border-radius: 0.25rem;
+  width: 90vw;
+  max-width: 1170px;
+}
+.btn {
+  background: #1b294d;
+  display: block;
+  width: 100%;
+  color: white;
+  border-radius: 10px;
+  border-color: transparent;
+  padding: 1.25rem 0;
+  font-size: 1rem;
+  cursor: pointer;
+}
+.btn:hover {
+  opacity: 0.9;
+  transform: scale(1.01);
+}
+/* MEDIA QUERIES */
+@media screen and (min-width: 992px) {
+  .infoExtra {
+    display: block;
+    padding: 4rem;
+    background: linear-gradient(#e66465, #9198e5);
+    border-radius: 0.25rem;
+    color: #fff;
+    min-height: 785px;
+  }
+  .infoRegister {
+    max-width: 240px;
+    margin-bottom: 2.5rem;
+  }
+  .icon {
+    width: 2rem;
+    height: 2rem;
+    display: block;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.23);
+    display: grid;
+    place-items: center;
+    margin-bottom: 1.75rem;
+  }
+  .infoRegister h4 {
+    font-weight: 500;
+  }
+
+  .containerForm {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 4rem;
+    align-items: center;
+  }
+}

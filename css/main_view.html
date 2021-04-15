@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <title>Social network</title>
+  <link rel="stylesheet" href="stylePerfil.css" />
+</head>
+
+<body>
+  <h1 class="section-title">PAGINA PRINCIPAL</h1>
+  <section>
+    <article class="card">
+      <header></header>
+<br>
+      <div class="profile_user" th:text="${profileUser.getName()}">
+        <h2 style="color: blueviolet;">Profile user name</h2>
+        <a href="/profile_view">
+          <button class="btn">Contáctame</button>
+      </a>
+      </div>
+      <br>
+      <h2>Últimas publicaciones</h2>
+      <div class="publications">
+        <div class="publication" th:each="publication : ${publications}">
+          <div class="publication_meta">
+            <span class="user" th:text="${publication.getUser().getName()}">Pepe</span>
+            <span class="publication_restricted" th:if="${publication.isRestricted()}">restricted</span>
+            <span class="publication_public" th:if="${!publication.isRestricted()}">public</span>
+            <span class="timestamp" th:text="${publication.getTimestamp()}">15 de marzo de 2021</span>
+          </div>
+          <div class="publication_text" th:text="${publication.getText()}">
+            El texto del mensaje
+          </div>
+        </div>
+      </div>
+
+      <div class="DaniUser" th:text="${DaniUser.getName()}">
+        Profile user name
+      </div>
+    </article>
+
+  </section>
+
+  <section>
+    <br>
+    <article class="cardMain">
+      <br>
+    <h2>Últimas publicaciones</h2>
+    <br>
+    <div class="publicationsDani">
+      <div class="publication" th:each="publication : ${publicationsDani}">
+        <div class="publication_meta">
+          <span class="user" th:text="${publication.getUser().getName()}"
+            >Pepe</span
+          >
+          <span
+            class="publication_restricted"
+            th:if="${publication.isRestricted()}"
+            >restricted</span
+          >
+          <span
+            class="publication_public"
+            th:if="${!publication.isRestricted()}"
+            >public</span
+          >
+          <span class="timestamp" th:text="${publication.getTimestamp()}"
+            >15 de marzo de 2021</span
+          >
+        </div>
+        <div class="publication_text" th:text="${publication.getText()}">
+          El texto del mensaje
+        </div>
+      </div>
+    </div>
+
+    <div th:text="${#authentication.principal.username}">User name here</div>
+    <br>
+    <button class="btn">
+      <form th:action="@{/logout}" method="post">
+      <input type="submit" value="Sign Out" />
+    </form>
+  </button>
+    <button class="btn" type="button" id="follow">Seguir</button>
+    </article>
+  </section>
+  </body>
+</html>
