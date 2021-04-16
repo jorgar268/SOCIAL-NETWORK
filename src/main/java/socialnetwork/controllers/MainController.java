@@ -45,6 +45,7 @@ public class MainController {
     @Autowired
     private PublicationRepository publicationRepository;
 
+    // CONTROL PAGINA PRINCIPAL
     @GetMapping(path = "/")
     public String mainView(Model model, Principal principal, Publication publication) {
         User profileUser = new User();
@@ -75,7 +76,7 @@ public class MainController {
         pub2.setTimestamp(new Date());
         publications.add(pub1);
         publications.add(pub2);
-        model.addAttribute("profileUser", profileUser);
+        model.addAttribute("profileUser", daniuser);
         model.addAttribute("publications", publications);
 
         User user = userRepository.findByEmail(principal.getName());
@@ -84,7 +85,7 @@ public class MainController {
         return "main_view";
     }
 
-/*
+/*          PRACTICA 5 EJ 5
     @GetMapping(path = "/user/{userId}")
     public String userView(@PathVariable int userId, Model model) {
         Optional<User> userOpt = userRepository.findById(userId);
@@ -98,6 +99,8 @@ public class MainController {
         return "user_view";
     }*/
 
+
+    // CONTROL PAGINA USER_VIEW
     @GetMapping(path = "/user_view")
     public String profileView(Model model) {
         User jorgeUser = new User();
@@ -129,6 +132,7 @@ public class MainController {
         return "user_view";
     }
 
+    // CONTROL SUBMIT USUARIO AL REGISTRAR
     @PostMapping(path = "/register")
     public String register(@Valid @ModelAttribute("user") User user,
                         BindingResult bindingResult,
@@ -147,18 +151,19 @@ public class MainController {
         return "redirect:login?registered";
     }
 
+    // CONTROL DE PANTALLA LOGIN
     @GetMapping(path = "/login")
     public String loginForm() {
         return "login";
     }
 
-    
-
+    //CONTROL PANTALLA REGISTER
     @GetMapping(path = "/register")
     public String register(User user) {
         return "register";
     }
 
+    // CONTROL POST DE PUBLICACION DESDE MAIN_VIEW
     @PostMapping(path = "/post")
     public String postPublication(@Valid @ModelAttribute("publication") Publication publication,
                                 BindingResult bindingResult,

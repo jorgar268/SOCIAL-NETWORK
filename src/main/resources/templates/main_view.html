@@ -11,68 +11,81 @@
         
     </head>
     <body>
-        <h1 class="section-title">PAGINA PRINCIPAL</h1>
-        <section>
-          <!-- TARJETA 1-->
-          <article class="card">
-            <br>
-            <div class="profile_user" th:text="${profileUser.getName()}">
-                <h2 style="color: blueviolet;">Profile user name</h2>
-              </div>
-              <br>
-
-              <!--- añadir publicaciones-->
-            <form th:action="@{/post}" th:object="${publication}" method="post">
-              <div>
-                  <textarea th:field="*{text}" placeholder="Your publication text here" required></textarea>
-              </div>
-              <div>
-                  <label>
-                      <input type="checkbox" th:field="*{restricted}">
-                      For friends only
-                  </label>
-              </div>
-              <div><input class="btn" type="submit" value="Post!"></div>
-          </form>
-          <!-- -------------------------------->
-            <br>
-            
-              <h2>Últimas publicaciones</h2>
-              <div class="publications">
-                <div class="publication" th:each="publication : ${publications}">
-                  <div class="publication_meta">
-                    <span class="user" th:text="${publication.getUser().getName()}">Pepe</span>
-                    <span class="publication_restricted" th:if="${publication.isRestricted()}">restricted</span>
-                    <span class="publication_public" th:if="${!publication.isRestricted()}">public</span>
-                    <span class="timestamp" th:text="${publication.getTimestamp()}">15 de marzo de 2021</span>
+ 
+      <section>
+        <br>
+        <article class="cardMain">
+          <br>
+          <h2><div th:text="${user.getName()}">User name here</div></h2>
+          <br>
+          <h4 style="color: cadetblue;">Añade tu publicación:</h4>
+                <!--- añadir publicaciones-->
+                <form th:action="@{/post}" th:object="${publication}" method="post">
+                  <div>
+                  
+                    <textarea th:field="*{text}" placeholder="Escribe tu publicación" required  rows="20" cols="40"  ></textarea>
+                   <br>
+                    <input class="btn" type="submit" value="Post">
                   </div>
-                  <div class="publication_text" th:text="${publication.getText()}">
-                    El texto del mensaje
-                </div>
-              </div>
-            </div>
+                  <div>
+                    <label>
+                      <input class="ckbx" type="checkbox" th:field="*{restricted}">
+                      For friends only
+                    </label>
+                  </div>
+                </form>
+    
           
-          </article>
-
-        <section>
-            <br>
-            <article class="cardMain">
-                <br>
-            <h2>Mi Perfil</h2>
-            <br>
-
-            <div th:text="${user.getName()}">User name here</div>
-            <br>
-            <button class="btn">
-                <form th:action="@{/logout}" method="post">
-                <input type="submit" value="Sign Out" />
+          <br>
+          <button class="btn">
+            <form th:action="@{/logout}" method="post">
+              <input type="submit" value="Sign Out" />
             </form>
-            </button>
-            <button class="btn" type="button" id="follow">Seguir</button>
-            <a href="/user_view">
-                <button class="btn" type="button">Ver Perfil</button>
-            </a>
-            </article>
-            </section>
+          </button>
+          <a href="/user_view">
+            <button class="btn" type="button">Ver Perfil</button>
+          </a>
+        </article>
+        <h1 class="section-title">PUBLICACIONES DE TUS AMIGOS</h1>
+      </section>
+      <section>
+        <!-- TARJETA 1-->
+        <article class="card">
+          <br>
+          <div class="profile_user" th:text="${profileUser.getName()}">
+            <!-- 
+    
+    
+    
+              
+             -->
+            <h2 style="color: blueviolet;">Profile user name</h2>
+          </div>
+          <br>
+    
+          <h2>Últimas publicaciones</h2>
+          <br>
+          <div class="publications">
+            <div class="publication" th:each="publication : ${publications}">
+              <div class="publication_meta">
+                <button class="btnFollow" type="button" id="follow" >Seguir</button>
+                <span class="user" th:text="${publication.getUser().getName()}"><h4 style="display: inline;margin-left: 5px;">Pepe</h4></span>
+               
+    
+                <span class="publication_restricted" th:if="${publication.isRestricted()}">restricted</span>
+                <span class="publication_public" th:if="${!publication.isRestricted()}">public</span>
+                <span class="timestamp" th:text="${publication.getTimestamp()}">15 de marzo de 2021</span>
+              </div>
+              <div class="publication_text" th:text="${publication.getText()}">
+                El texto del mensaje
+              </div>
+              <hr style="margin-left: 20%;margin-right: 20%;margin-top: 10%;margin-bottom: 10%;">
+            </div>
+          </div>
+    
+        </article>
+      </section>
+    
+    
     </body>
 </html>

@@ -1,4 +1,5 @@
 /* GLOBAL STYLE */
+/* GLOBAL STYLE */
 *,
 ::after,
 ::before {
@@ -54,6 +55,32 @@ h4 {
 p {
   margin-bottom: 1.25rem;
 }
+textarea {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 500px;
+  max-width: fit-content;
+  height: 100px;
+  background: none repeat scroll 0 0 rgba(0, 0, 0, 0.07);
+  border-radius: 6px 6px 6px 6px;
+  border-style: none solid solid none;
+  border-width: medium 1px 1px medium;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.22) inset;
+  color: #555555;
+  padding: 5px 8px;
+  transition: background-color 0.2s ease 0s;
+}
+
+
+textarea:focus {
+    background: none repeat scroll 0 0 #FFFFFF;
+    outline-width: 0;
+}
+.ckbx{
+  margin-top: 10px;
+  border:2px dotted #00f;
+  background:#ff0000;
+}
  /* FIN ESTILOS GLOBALES */
 
 /*
@@ -66,12 +93,13 @@ Card
   margin: 4rem 0 6rem 0;
 }
 .card {
-  max-width: 446px;
+ 
   text-align: center;
   padding-bottom: 3.5rem;
   width: 90vw;
   margin: 4rem auto;
-  background: white;
+  
+  background-image: linear-gradient(315deg, #ffffff 0%, #d7e1ec 74%);
   border-radius: 3px;
   box-shadow:rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px, rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px, rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px;
 }
@@ -175,6 +203,26 @@ Card
 .btn:hover {
   opacity: 0.9;
   transform: scale(1.05);
+}
+.btnFollow {
+  
+  text-align: center;
+  letter-spacing: 1.6px;
+  font-size: 1rem;
+  color: white;
+  background: rgb(0, 153, 255);
+  border-radius:10px;
+  border-color: transparent;
+  transition: all 0.3s linear;
+  cursor: pointer;
+  border-color: transparent;
+  padding: 0.2rem;
+  font-size: 1rem;
+  opacity: 0.5;
+}
+.btnFollow:hover {
+  opacity:1;
+  transform: scale(1.02);
 }
 a{
  color: #fff;
