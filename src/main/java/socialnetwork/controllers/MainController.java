@@ -63,6 +63,11 @@ public class MainController {
         userJohn.setName("John Doe");
         userJohn.setDescription("Professional couch potato");
 
+        User jorgeUser = new User();
+        jorgeUser.setName("Jorge García");
+        jorgeUser.setDescription("Estudiante UC3M apasionado por el desarrollo Frontend");
+        jorgeUser.setEmail("jorge@example.com");
+
         Publication pub1 = new Publication();
         pub1.setUser(daniuser);
         pub1.setText("Programando la web...");
@@ -74,8 +79,17 @@ public class MainController {
         pub2.setText("Watching TV for 8 hours in a row. It's a new record!!!");
         pub2.setRestricted(true);
         pub2.setTimestamp(new Date());
+
+        Publication pub3 = new Publication();
+        pub3.setUser(jorgeUser);
+        pub3.setText(jorgeUser.getDescription());
+        pub3.setRestricted(true);
+        pub3.setTimestamp(new Date());
+
         publications.add(pub1);
         publications.add(pub2);
+        publications.add(pub3);
+
         model.addAttribute("profileUser", daniuser);
         model.addAttribute("publications", publications);
 
@@ -102,7 +116,7 @@ public class MainController {
 
     // CONTROL PAGINA USER_VIEW
     @GetMapping(path = "/user_view")
-    public String profileView(Model model) {
+    public String profileView(Model model, Principal principal) {
         User jorgeUser = new User();
         jorgeUser.setName("Jorge García");
         jorgeUser.setDescription("Estudiante UC3M apasionado por el desarrollo Frontend");
@@ -128,6 +142,8 @@ public class MainController {
         model.addAttribute("jorgeUser", jorgeUser);
         model.addAttribute("publicationsJorge", publicationsJorge);
 
+        User user = userRepository.findByEmail(principal.getName());
+        model.addAttribute("user", user);
 
         return "user_view";
     }

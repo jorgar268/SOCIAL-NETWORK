@@ -13,27 +13,11 @@
   <section>
     <article class="card">
       <header></header>
-      <div id="usr_photo" class="img">foto aqui</div>
-      <div></div>
-      <h4>
-        <div class="jorgeUser" th:text="${jorgeUser.getName()}">
-          Nombre usuario
-        </div>
-      </h4>
-      <!-- <P>Últimas publicaciones</P>
-      <div class="publicationsJorge">
-        <div class="publication" th:each="publication : ${publicationsJorge}">
-          <div class="publication_meta">
-            <span class="user" th:text="${publication.getUser().getName()}">Pepe</span>
-            <span class="publication_restricted" th:if="${publication.isRestricted()}">restricted</span>
-            <span class="publication_public" th:if="${!publication.isRestricted()}">public</span>
-            <span class="timestamp" th:text="${publication.getTimestamp()}">15 de marzo de 2021</span>
-          </div>
-          <div class="publication_text" th:text="${publication.getText()}">
-            El texto del mensaje
-          </div>
-        </div>
-      </div> -->
+      <!--<div id="usr_photo" class="img">foto aqui</div>-->
+      <br>
+      <h2>
+        <div th:text="${user.getName()}">User name here</div>
+      </h2>
 
       <div th:text="${#authentication.principal.username}">User name here</div>
 
@@ -45,7 +29,7 @@
         <input type="submit" value="Sign Out" />
       </form>
      </button>
-      <button type="button" id="follow" class="btn">Seguir</button>
+      <!--<button type="button" id="follow" class="btn">Seguir</button>-->
       <a href="/">
         <button class="btn" type="button">Volver</button>
     </a>

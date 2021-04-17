@@ -52,33 +52,36 @@
         <!-- TARJETA 1-->
         <article class="card">
           <br>
-          <div class="profile_user" th:text="${profileUser.getName()}">
-            <!-- 
+          <!--<div class="profile_user" th:text="${profileUser.getName()}">
+            
     
     
-    
+            <h2 style="color: blueviolet;">Profile user name</h2>
               
              -->
-            <h2 style="color: blueviolet;">Profile user name</h2>
+            
           </div>
           <br>
     
-          <h2>Últimas publicaciones</h2>
+          <h1>Últimas publicaciones</h1>
           <br>
           <div class="publications">
             <div class="publication" th:each="publication : ${publications}">
               <div class="publication_meta">
-                <button class="btnFollow" type="button" id="follow" >Seguir</button>
-                <span class="user" th:text="${publication.getUser().getName()}"><h4 style="display: inline;margin-left: 5px;">Pepe</h4></span>
-               
-    
-                <span class="publication_restricted" th:if="${publication.isRestricted()}">restricted</span>
+                <h2><span class="user" th:text="${publication.getUser().getName()}"><h4 style="display: inline;margin-left: 5px;">Pepe</h4></span></h2>
+                
+                <div class="publication_text" th:text="${publication.getText()}">
+                  El texto del mensaje
+                </div >
+                
+                <h6><span class="publication_restricted" th:if="${publication.isRestricted()}">restricted</span>
                 <span class="publication_public" th:if="${!publication.isRestricted()}">public</span>
-                <span class="timestamp" th:text="${publication.getTimestamp()}">15 de marzo de 2021</span>
+                <span class="timestamp" th:text="${publication.getTimestamp()}">15 de marzo de 2021</span></h6>
+
               </div>
-              <div class="publication_text" th:text="${publication.getText()}">
-                El texto del mensaje
-              </div>
+              
+              <br>
+              <button class="btnFollow" type="button" id="follow" >Seguir</button>
               <hr style="margin-left: 20%;margin-right: 20%;margin-top: 10%;margin-bottom: 10%;">
             </div>
           </div>
