@@ -11,9 +11,15 @@
 <body>
   <h1 class="section-title">PERFIL</h1>
   <section>
-    <article class="card">
+    <article class="cardPerfil">
       <header></header>
       <!--<div id="usr_photo" class="img">foto aqui</div>-->
+      <br>
+      <h2>
+        <div th:text="${user.getName()}">User name here</div>
+      </h2>
+<h4>  <div th:text="${#authentication.principal.username}">User name here</div>
+</h4>
       <br>
       <button class="btn">
         <form th:action="@{/logout}" method="post">
@@ -24,13 +30,16 @@
         <a href="/">
           <button class="btn" type="button">Volver</button>
       </a>
-      <br>
-      <h2>
-        <div th:text="${user.getName()}">User name here</div>
-      </h2>
 
-      <div th:text="${#authentication.principal.username}">User name here</div>
+    </article>
+   
+  </section>
+  <h1 class="section-title"> TUS PUBLICACIONES</h1>
+  <section>
+    
 
+
+    <article class="card">
       
 
    <br>
