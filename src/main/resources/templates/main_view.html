@@ -42,7 +42,7 @@
               <input type="submit" value="Sign Out" />
             </form>
           </button>
-          <a href="@{/user/15}">
+          <a href="/user_view">
             <button class="btn" type="button">Ver Perfil</button>
           </a>
         </article>
@@ -82,8 +82,16 @@
               
               <br>
               <button class="btnFollow" type="button" id="follow" >Seguir</button>
+              
+              <button class="btnFollow" type="button">Ver Perfil
+                <a th:href="@{/user/{id}(id=${publication.getUser().getId()})}" th:text="${publication.getUser().getName()}">Pepe</a>
+              </button>
+
               <hr style="margin-left: 20%;margin-right: 20%;margin-top: 10%;margin-bottom: 10%;">
             </div>
+          
+            
+            
           </div>
     
         </article>

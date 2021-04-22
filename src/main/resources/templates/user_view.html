@@ -15,12 +15,23 @@
       <header></header>
       <!--<div id="usr_photo" class="img">foto aqui</div>-->
       <br>
+      <button class="btn">
+        <form th:action="@{/logout}" method="post">
+          <input type="submit" value="Sign Out" />
+        </form>
+       </button>
+        <!--<button type="button" id="follow" class="btn">Seguir</button>-->
+        <a href="/">
+          <button class="btn" type="button">Volver</button>
+      </a>
+      <br>
       <h2>
         <div th:text="${user.getName()}">User name here</div>
       </h2>
 
       <div th:text="${#authentication.principal.username}">User name here</div>
 
+      
 
    <br>
 
@@ -38,19 +49,12 @@
 
       </div>
     
+      <hr style="margin-left: 20%;margin-right: 20%;margin-top: 10%;margin-bottom: 10%;">
       
     </div>
   </div>
 
-      <button class="btn">
-      <form th:action="@{/logout}" method="post">
-        <input type="submit" value="Sign Out" />
-      </form>
-     </button>
-      <!--<button type="button" id="follow" class="btn">Seguir</button>-->
-      <a href="/">
-        <button class="btn" type="button">Volver</button>
-    </a>
+      
     </article>
   </section>
 </body>
