@@ -83,11 +83,11 @@
               <br>
               <button class="btnFollow" type="button" id="follow" >Seguir</button>
               
-              <button class="btnFollow" type="button">Ver Perfil
-                <a th:href="@{/user/{id}(id=${publication.getUser().getId()})}" th:text="${publication.getUser().getName()}">Pepe</a>
-              </button>
 
-              <hr style="margin-left: 20%;margin-right: 20%;margin-top: 10%;margin-bottom: 10%;">
+              <button class="btn" type="button">Ver Perfil
+                <a th:href="@{/user/{id}(id=${publication.getUser().getId()})}" th:text="${publication.getUser().getName()}" style="text-decoration: none;">Pepe</a>
+              </button>
+              
             </div>
           
             
