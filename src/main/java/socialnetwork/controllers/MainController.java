@@ -68,7 +68,9 @@ public class MainController {
         jorgeUser.setDescription("Estudiante UC3M apasionado por el desarrollo Frontend");
         jorgeUser.setEmail("jorge@example.com");
 
-        Publication pub1 = new Publication();
+
+        publications = publicationRepository.findFirst10ByRestrictedIsFalseOrderByTimestampDesc();
+        /*Publication pub1 = new Publication();
         pub1.setUser(daniuser);
         pub1.setText("Programando la web...");
         pub1.setRestricted(false);
@@ -89,7 +91,7 @@ public class MainController {
         publications.add(pub1);
         publications.add(pub2);
         publications.add(pub3);
-
+*/
         model.addAttribute("profileUser", daniuser);
         model.addAttribute("publications", publications);
 
@@ -99,7 +101,11 @@ public class MainController {
         return "main_view";
     }
 
-/*          PRACTICA 5 EJ 5
+    
+
+
+    // CONTROL PAGINA USER_VIEW
+    
     @GetMapping(path = "/user/{userId}")
     public String userView(@PathVariable int userId, Model model) {
         Optional<User> userOpt = userRepository.findById(userId);
@@ -111,10 +117,9 @@ public class MainController {
         model.addAttribute("user", user);
         model.addAttribute("publications", publicationRepository.findByUserOrderByTimestampDesc(user));
         return "user_view";
-    }*/
+    }
 
-
-    // CONTROL PAGINA USER_VIEW
+    /*
     @GetMapping(path = "/user_view")
     public String profileView(Model model, Principal principal) {
         User jorgeUser = new User();
@@ -146,7 +151,7 @@ public class MainController {
         model.addAttribute("user", user);
 
         return "user_view";
-    }
+    }*/
 
     // CONTROL SUBMIT USUARIO AL REGISTRAR
     @PostMapping(path = "/register")

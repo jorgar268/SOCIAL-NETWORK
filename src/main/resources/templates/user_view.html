@@ -4,7 +4,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <title>Social network</title>
-  <link rel="stylesheet" href="public/stylePerfil.css" />
+  <link rel="stylesheet" th:href="@{/public/stylePerfil.css}" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" />
 </head>
 
@@ -23,6 +23,24 @@
 
 
    <br>
+
+   <div class="publications">
+    <div class="publication" th:each="publication : ${publications}">
+      <div class="publication_meta">
+        
+        <div class="publication_text" th:text="${publication.getText()}">
+          El texto del mensaje
+        </div >
+        
+        <h6><span class="publication_restricted" th:if="${publication.isRestricted()}">restricted</span>
+        <span class="publication_public" th:if="${!publication.isRestricted()}">public</span>
+        <span class="timestamp" th:text="${publication.getTimestamp()}">15 de marzo de 2021</span></h6>
+
+      </div>
+    
+      
+    </div>
+  </div>
 
       <button class="btn">
       <form th:action="@{/logout}" method="post">
