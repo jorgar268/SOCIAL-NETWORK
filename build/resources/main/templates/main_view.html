@@ -42,9 +42,9 @@
               <input type="submit" value="Sign Out" />
             </form>
           </button>
-          <a href="/user_view">
-            <button class="btn" type="button">Ver Perfil</button>
-          </a>
+          <button class="btn" type="button">
+            <a th:href="@{/user/{id}(id=${user.getId()})}" th:text="'Ver Perfil'" style="text-decoration: none;">Pepe</a>
+          </button>
         </article>
         <h1 class="section-title">PUBLICACIONES DE TUS AMIGOS</h1>
       </section>
@@ -84,12 +84,13 @@
               <button class="btnFollow" type="button" id="follow" >Seguir</button>
               
 
-              <button class="btn" type="button">Ver Perfil
-                <a th:href="@{/user/{id}(id=${publication.getUser().getId()})}" th:text="${publication.getUser().getName()}" style="text-decoration: none;">Pepe</a>
+              <button class="btn" type="button">
+                <a th:href="@{/user/{id}(id=${publication.getUser().getId()})}" th:text="'Ver Perfil de '+${publication.getUser().getName()}" style="text-decoration: none;">Pepe</a>
               </button>
               
+            <hr style="margin-left: 20%;margin-right: 20%;margin-top: 10%;margin-bottom: 10%;">
             </div>
-          
+            
             
             
           </div>
