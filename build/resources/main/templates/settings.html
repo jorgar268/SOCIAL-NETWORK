@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <title>Social network</title>
+  <link rel="stylesheet" th:href="@{/public/stylePerfil.css}" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" />
+</head>
+
+<body>
+  <h1 class="section-title">AJUSTES</h1>
+  <section>
+    <article class="cardPerfil">
+    
+
+        <form th:action="@{/postSettings}" method="post" th:object="${user}">
+            <div>
+                <textarea th:field="*{description}" placeholder="Escribe tu descripcion" required  rows="20" cols="40"  ></textarea>
+                <br>
+                <input class="btn" type="submit" value="Post">
+            </div>
+            
+        </form>
+
+    </article>
+</body>
+
+</html>

@@ -237,6 +237,12 @@ FIN CARD PERFIL
   padding: 0.5rem 0;
   font-size: 1rem;
 }
+
+#btn_desc{
+  background:rgb(0, 153, 255);
+  width: 40%;
+} 
+
 .btn:hover {
   opacity: 0.9;
   transform: scale(1.05);

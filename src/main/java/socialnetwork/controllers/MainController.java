@@ -70,28 +70,7 @@ public class MainController {
 
 
         publications = publicationRepository.findFirst10ByRestrictedIsFalseOrderByTimestampDesc();
-        /*Publication pub1 = new Publication();
-        pub1.setUser(daniuser);
-        pub1.setText("Programando la web...");
-        pub1.setRestricted(false);
-        pub1.setTimestamp(new Date());
-
-        Publication pub2 = new Publication();
-        pub2.setUser(userJohn);
-        pub2.setText("Watching TV for 8 hours in a row. It's a new record!!!");
-        pub2.setRestricted(true);
-        pub2.setTimestamp(new Date());
-
-        Publication pub3 = new Publication();
-        pub3.setUser(jorgeUser);
-        pub3.setText(jorgeUser.getDescription());
-        pub3.setRestricted(true);
-        pub3.setTimestamp(new Date());
-
-        publications.add(pub1);
-        publications.add(pub2);
-        publications.add(pub3);
-*/
+        
         model.addAttribute("profileUser", daniuser);
         model.addAttribute("publications", publications);
 
@@ -119,39 +98,6 @@ public class MainController {
         return "user_view";
     }
 
-    /*
-    @GetMapping(path = "/user_view")
-    public String profileView(Model model, Principal principal) {
-        User jorgeUser = new User();
-        jorgeUser.setName("Jorge García");
-        jorgeUser.setDescription("Estudiante UC3M apasionado por el desarrollo Frontend");
-        jorgeUser.setEmail("jorge@example.com");
-
-        List<Publication> publicationsJorge = new ArrayList<Publication>();
-
-        Publication pub1 = new Publication();
-        pub1.setUser(jorgeUser);
-        pub1.setText("Programando en css...");
-        pub1.setRestricted(false);
-        pub1.setTimestamp(new Date());
-
-        Publication pub2 = new Publication();
-        pub1.setUser(jorgeUser);
-        pub1.setText(jorgeUser.getDescription());
-        pub1.setRestricted(false);
-        pub1.setTimestamp(new Date());
-
-        //publicationsJorge.add(pub1);
-        //publicationsJorge.add(pub2);
-
-        model.addAttribute("jorgeUser", jorgeUser);
-        model.addAttribute("publicationsJorge", publicationsJorge);
-
-        User user = userRepository.findByEmail(principal.getName());
-        model.addAttribute("user", user);
-
-        return "user_view";
-    }*/
 
     // CONTROL SUBMIT USUARIO AL REGISTRAR
     @PostMapping(path = "/register")
@@ -197,6 +143,26 @@ public class MainController {
         publication.setTimestamp(new Date());
         publicationRepository.save(publication);
         return "redirect:/";
+    }
+
+
+    @GetMapping(path = "/settings")
+    public String settingsView(User user){
+
+        return "settings";
+    }
+
+    @PostMapping(path = "/postSettings")
+    public String settings(
+                        @RequestParam String description,
+                        Principal principal) {
+        
+        
+        User user = userRepository.findByEmail(principal.getName());
+        user.setDescription(description);
+        userRepository.save(user);
+
+        return "redirect:/user/"+user.getId();
     }
     
 }

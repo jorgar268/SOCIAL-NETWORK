@@ -18,8 +18,16 @@
       <h2>
         <div th:text="${user.getName()}">User name here</div>
       </h2>
-<h4>  <div th:text="${#authentication.principal.username}">User name here</div>
-</h4>
+      <h4>  
+        <div th:text="${#authentication.principal.username}">User name here</div>
+      </h4>
+      <h5>
+        <div th:text="${user.getDescription()} ?: 'No hay descripcion'"></h5>
+          <a href="/settings">
+            <button class="btn" id="btn_desc" type="button">Editar Descripcion</button>
+          </a>
+        </div>
+      <br>
       <br>
       <button class="btn">
         <form th:action="@{/logout}" method="post">
