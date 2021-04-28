@@ -243,6 +243,11 @@ FIN CARD PERFIL
   width: 40%;
 } 
 
+#btn_friend{
+  background:rgb(0, 89, 255);
+  width: 40%;
+} 
+
 .btn:hover {
   opacity: 0.9;
   transform: scale(1.05);

@@ -15,8 +15,15 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
+import javax.persistence.ManyToMany;
+import javax.persistence.JoinTable;
+
 @Entity
 public class User {
+
+    @ManyToMany
+    @JoinTable(name="friends", joinColumns=@JoinColumn(name = "subject_id"), inverseJoinColumns=@JoinColumn(name = "friend_id"))
+    private List<User> friends;
 
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
@@ -95,5 +102,13 @@ public class User {
     
     public void setPublications(List<Publication> publications) {
         this.publications = publications;
+    }
+
+    public List<User> getFriends(){
+        return friends;
+    }
+
+    public void setFriends(List<User> friends){
+        this.friends = friends;
     }
 }

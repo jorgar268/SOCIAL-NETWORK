@@ -19,10 +19,11 @@
         <div th:text="${user.getName()}">User name here</div>
       </h2>
       <h4>  
-        <div th:text="${#authentication.principal.username}">User name here</div>
+        <div th:text="${user.getEmail()}">User name here</div>
       </h4>
       <h5>
         <div th:text="${user.getDescription()} ?: 'No hay descripcion'"></h5>
+          <br>
           <a href="/settings">
             <button class="btn" id="btn_desc" type="button">Editar Descripcion</button>
           </a>
@@ -39,6 +40,14 @@
           <button class="btn" type="button">Volver</button>
       </a>
 
+      
+      <div th:if="${user != sessionUser && !user.getFriends().contains(sessionUser) && request==null} ">
+        <br>
+        <form th:action="@{/requestFriendship}" method="post">
+            <input type="hidden" name="userId" th:value="${user.getId()}">
+            <input class="btn" id="btn_friend" type="submit" value="Solicitar amistad">
+        </form>
+    </div>
     </article>
    
   </section>

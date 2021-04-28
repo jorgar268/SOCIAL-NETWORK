@@ -10,10 +10,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import socialnetwork.model.FriendshipRequest;
+import socialnetwork.model.FriendshipRequestRepository;
 import socialnetwork.model.Publication;
 import socialnetwork.model.User;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
+import socialnetwork.services.FriendshipRequestException;
+import socialnetwork.services.FriendshipRequestService;
 import socialnetwork.services.UserService;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -44,6 +49,12 @@ public class MainController {
 
     @Autowired
     private PublicationRepository publicationRepository;
+
+    @Autowired
+    private FriendshipRequestService friendshipRequestService;
+
+    @Autowired
+    private FriendshipRequestRepository friendshipRequestRepository;
 
     // CONTROL PAGINA PRINCIPAL
     @GetMapping(path = "/")
@@ -86,13 +97,27 @@ public class MainController {
     // CONTROL PAGINA USER_VIEW
     
     @GetMapping(path = "/user/{userId}")
-    public String userView(@PathVariable int userId, Model model) {
+    public String userView(@PathVariable int userId, Model model, Principal principal) {
         Optional<User> userOpt = userRepository.findById(userId);
         if (!userOpt.isPresent()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
 
         }
         User user = userOpt.get();
+        User sessionUser = userRepository.findByEmail(principal.getName());
+
+        List<FriendshipRequest> requests = friendshipRequestRepository.findBySenderAndReceiverAndState(sessionUser, user, FriendshipRequest.State.OPEN);
+        if (!requests.isEmpty()) {
+            model.addAttribute("request", requests.get(0));
+        } else {
+            requests = friendshipRequestRepository.findBySenderAndReceiverAndState(user, sessionUser, FriendshipRequest.State.OPEN);
+            if (!requests.isEmpty()) {
+                model.addAttribute("request", requests.get(0));
+            } else {
+                model.addAttribute("request", null);
+            }
+        }
+        model.addAttribute("sessionUser", sessionUser);
         model.addAttribute("user", user);
         model.addAttribute("publications", publicationRepository.findByUserOrderByTimestampDesc(user));
         return "user_view";
@@ -165,4 +190,25 @@ public class MainController {
         return "redirect:/user/"+user.getId();
     }
     
+    @PostMapping(path = "/requestFriendship")
+    public String requestFriendship(@RequestParam int userId, Principal principal) {
+        Optional<User> userOpt = userRepository.findById(userId);
+        if (!userOpt.isPresent()) {
+            
+            return "redirect:/";
+            
+        }
+        
+        User user = userRepository.findByEmail(principal.getName());
+        User receiver = userOpt.get();
+        try{
+            FriendshipRequest request = friendshipRequestService.createFriendshipRequest(user, receiver);
+        }catch (FriendshipRequestException e){
+            return "redirect:/";
+        }
+
+        return "redirect:/user/"+receiver.getId();
+
+    }
+
 }
