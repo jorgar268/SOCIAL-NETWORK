@@ -22,8 +22,12 @@
                 <!--- añadir publicaciones-->
                 <form th:action="@{/post}" th:object="${publication}" method="post">
                   <div>
-                  
-                    <textarea th:field="*{text}" placeholder="Escribe tu publicación" required  rows="20" cols="40"  ></textarea>
+                    <label >Título:</label><br>
+                    <textarea th:field="*{tittle}"placeholder="título" required  rows="20" cols="20"></textarea>
+                    <br>
+                    <label >Publicación:</label><br>
+                    <br>
+                    <textarea th:field="*{text}" placeholder="Escribe tu publicación" required  rows="20" cols="40"></textarea>
                    <br>
                     <input class="btn" type="submit" value="Post">
                   </div>
@@ -68,8 +72,9 @@
           <div class="publications">
             <div class="publication" th:each="publication : ${publications}">
               <div class="publication_meta">
-                <h2><span class="user" th:text="${publication.getUser().getName()}"><h4 style="display: inline;margin-left: 5px;">Pepe</h4></span></h2>
-                
+                <h2 style="color: #c5bdeb;">Publicación de:</h2><h2><span class="user" th:text="${publication.getUser().getName()}"><h4 style="display: inline;margin-left: 5px;">Pepe</h4></span></h2>
+                <h2 style="color: #c5bdeb;">Título:</h2><h2><span class="tittle" th:text="${publication.getTittle()}"><h4 style="display: inline;margin-left: 5px;">Pepe</h4></span></h2>
+
                 <div class="publication_text" th:text="${publication.getText()}">
                   El texto del mensaje
                 </div >

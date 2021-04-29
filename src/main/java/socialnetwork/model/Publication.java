@@ -19,6 +19,10 @@ public class Publication {
     @Column(nullable = false)
     @NotBlank
     private String text;
+   // Mejora
+    @Column(nullable = false)
+    @NotBlank
+    private String tittle;
 
     @Column(nullable = false)
     private Boolean restricted;
@@ -43,6 +47,14 @@ public class Publication {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+     public String getTittle() {
+        return tittle;
+    }
+
+    public void setTittle(String tittle) {
+        this.tittle = tittle;
     }
 
     public User getUser() {

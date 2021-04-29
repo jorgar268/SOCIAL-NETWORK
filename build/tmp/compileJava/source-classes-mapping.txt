@@ -2,12 +2,12 @@ socialnetwork/model/PublicationRepository.java
  socialnetwork.model.PublicationRepository
 socialnetwork/services/FriendshipRequestService.java
  socialnetwork.services.FriendshipRequestService
-socialnetwork/model/Publication.java
- socialnetwork.model.Publication
-socialnetwork/services/UserService.java
- socialnetwork.services.UserService
 socialnetwork/services/UserServiceImpl.java
  socialnetwork.services.UserServiceImpl
+socialnetwork/services/UserService.java
+ socialnetwork.services.UserService
+socialnetwork/model/FriendshipRequestRepository.java
+ socialnetwork.model.FriendshipRequestRepository
 socialnetwork/model/FriendshipRequest.java
  socialnetwork.model.FriendshipRequest
  socialnetwork.model.FriendshipRequest$State
@@ -25,7 +25,7 @@ socialnetwork/WebSecurityConfig.java
  socialnetwork.WebSecurityConfig
 socialnetwork/services/FriendshipRequestException.java
  socialnetwork.services.FriendshipRequestException
-socialnetwork/model/FriendshipRequestRepository.java
- socialnetwork.model.FriendshipRequestRepository
+socialnetwork/model/Publication.java
+ socialnetwork.model.Publication
 socialnetwork/controllers/MainController.java
  socialnetwork.controllers.MainController
