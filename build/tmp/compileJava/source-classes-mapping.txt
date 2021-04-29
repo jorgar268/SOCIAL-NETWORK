@@ -17,15 +17,15 @@ socialnetwork/services/UserDetailsServiceImpl.java
  socialnetwork.services.UserDetailsServiceImpl
 socialnetwork/model/User.java
  socialnetwork.model.User
-socialnetwork/services/FriendshipRequestServiceImpl.java
- socialnetwork.services.FriendshipRequestServiceImpl
+socialnetwork/model/FriendshipRequestRepository.java
+ socialnetwork.model.FriendshipRequestRepository
 socialnetwork/model/UserRepository.java
  socialnetwork.model.UserRepository
 socialnetwork/WebSecurityConfig.java
  socialnetwork.WebSecurityConfig
 socialnetwork/services/FriendshipRequestException.java
  socialnetwork.services.FriendshipRequestException
-socialnetwork/model/FriendshipRequestRepository.java
- socialnetwork.model.FriendshipRequestRepository
+socialnetwork/services/FriendshipRequestServiceImpl.java
+ socialnetwork.services.FriendshipRequestServiceImpl
 socialnetwork/controllers/MainController.java
  socialnetwork.controllers.MainController

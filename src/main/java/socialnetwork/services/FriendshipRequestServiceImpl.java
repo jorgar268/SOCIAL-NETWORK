@@ -1,6 +1,8 @@
 package socialnetwork.services;
 
 import java.util.Date;
+import java.util.List;
+import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,7 +34,7 @@ public class FriendshipRequestServiceImpl implements FriendshipRequestService {
         request.setSender(sender);
         request.setReceiver(receiver);
         request.setCreationTimestamp(new Date());
-        request.setState(FriendshipRequest.State.OPEN);
+        request.setState(State.OPEN);
         friendshipRequestRepository.save(request);
         return request;
     }
@@ -40,13 +42,35 @@ public class FriendshipRequestServiceImpl implements FriendshipRequestService {
     @Override
     public void acceptFriendshipRequest(FriendshipRequest request, User receiver)
         throws FriendshipRequestException {
-            if (request.getState()==State.OPEN && request.getReceiver()==receiver){
+            if (request.getState()!=State.OPEN && request.getReceiver()!=receiver){
+                throw new FriendshipRequestException("Error en la solicitud");
+            }else{
+                List<User> friendsSender = new ArrayList<User>();
+                List<User> friendsReceiver = new ArrayList<User>();
+
+                request.setState(State.ACCEPTED);
+                request.setReceiver(receiver);
                 
-            }
+                User sender = request.getSender();
+                friendsSender.add(receiver);
+                friendsReceiver.add(sender);
+
+                sender.setFriends(friendsSender);
+                receiver.setFriends(friendsReceiver);
+                
+                friendshipRequestRepository.save(request);
+            } 
     }
 
     @Override
     public void declineFriendshipRequest(FriendshipRequest request, User receiver)
         throws FriendshipRequestException {
+            if (request.getState()!=State.OPEN && request.getReceiver()!=receiver){
+                throw new FriendshipRequestException("Error en la solicitud");
+            }else{
+                request.setState(State.DECLINED);
+                request.setReceiver(receiver);
+                friendshipRequestRepository.save(request);
+            } 
     }
 }

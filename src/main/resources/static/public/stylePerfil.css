@@ -242,7 +242,12 @@ FIN CARD PERFIL
   width: 40%;
 } 
 
-#btn_friend{
+#btn_follow{
+  background:rgb(0, 89, 255);
+  width: 40%;
+} 
+
+#btn_unfollow{
   background:rgb(0, 89, 255);
   width: 40%;
 } 

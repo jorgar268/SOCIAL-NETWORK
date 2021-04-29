@@ -40,13 +40,19 @@
       </a>
 
 
-      <div th:if="${user != sessionUser && !user.getFriends().contains(sessionUser) && request==null} ">
+      <div th:if="${user != sessionUser && !sessionUser.getFriends().contains(user) && request==null} ">
         <br>
         <form th:action="@{/requestFriendship}" method="post">
           <input type="hidden" name="userId" th:value="${user.getId()}">
-          <input class="btn" id="btn_friend" type="submit" value="Solicitar amistad">
+          <input class="btn" id="btn_follow" type="submit" value="Seguir">
         </form>
       </div>
+
+      <div th:if="${user != sessionUser && sessionUser.getFriends().contains(user)} ">
+        <br>
+          <button class="btn" id="btn_unfollow">Dejar de Seguir</button>
+      </div>
+
     </article>
 
   </section>

@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import socialnetwork.services.FriendshipRequestException;
 import socialnetwork.services.FriendshipRequestService;
+import socialnetwork.services.FriendshipRequestServiceImpl;
 import socialnetwork.services.UserService;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -67,7 +68,8 @@ public class MainController {
         
         model.addAttribute("publications", publications);
 
-        List <FriendshipRequest> requests = friendshipRequestRepository.findByReceiverAndState(user, FriendshipRequest.State.OPEN);
+        List <FriendshipRequest> requests = new ArrayList<FriendshipRequest>();
+        requests = friendshipRequestRepository.findByReceiverAndState(user, FriendshipRequest.State.OPEN);
                 if (!requests.isEmpty()) {
             model.addAttribute("request", requests.get(0));
         } else {
@@ -204,6 +206,37 @@ public class MainController {
 
         return "redirect:/user/"+receiver.getId();
 
+    }
+
+    @PostMapping(path = "/answerFriendshipRequest")
+    public String answerFriendshipRequest(@RequestParam int requestId, @RequestParam String action, Principal principal) {
+        
+        User sessionUser = userRepository.findByEmail(principal.getName());
+        Optional<FriendshipRequest> requestOpt = friendshipRequestRepository.findById(requestId);
+        if (!requestOpt.isPresent()) {
+            
+            return "redirect:/";
+            
+        }
+        FriendshipRequest request = requestOpt.get();
+        User user = request.getSender();
+        if(action.equals("Accept")){
+            try {
+                friendshipRequestService.acceptFriendshipRequest(request, sessionUser);
+                return "redirect:/user/"+user.getId();
+                
+            } catch (FriendshipRequestException e) {
+                return "redirect:/";
+            }
+        }else if(action.equals("Decline")){
+            try {
+                friendshipRequestService.declineFriendshipRequest(request, sessionUser);
+                return "redirect:/";
+            } catch (FriendshipRequestException e) {
+                return "redirect:/";
+            }
+        }
+        return "redirect:/";
     }
 
 }
