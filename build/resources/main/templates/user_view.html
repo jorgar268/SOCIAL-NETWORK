@@ -18,68 +18,70 @@
       <h2>
         <div th:text="${user.getName()}">User name here</div>
       </h2>
-      <h4>  
+      <h4>
         <div th:text="${user.getEmail()}">User name here</div>
       </h4>
-      
-        <div th:if="${user.getId() == sessionUser.getId()}">
-          <br>
-          <a href="/settings">
-            <button class="btn" id="btn_desc" type="button">Editar Descripcion</button>
-          </a>
-        </div>
+
+      <div th:if="${user.getId() == sessionUser.getId()}">
+        <br>
+        <a href="/settings">
+          <button class="btn" id="btn_desc" type="button">Editar Descripcion</button>
+        </a>
+      </div>
       <br>
       <button class="btn">
         <form th:action="@{/logout}" method="post">
           <input type="submit" value="Sign Out" />
         </form>
-       </button>
-        <!--<button type="button" id="follow" class="btn">Seguir</button>-->
-        <a href="/">
-          <button class="btn" type="button">Volver</button>
+      </button>
+      <!--<button type="button" id="follow" class="btn">Seguir</button>-->
+      <a href="/">
+        <button class="btn" type="button">Volver</button>
       </a>
 
-      
+
       <div th:if="${user != sessionUser && !user.getFriends().contains(sessionUser) && request==null} ">
         <br>
         <form th:action="@{/requestFriendship}" method="post">
-            <input type="hidden" name="userId" th:value="${user.getId()}">
-            <input class="btn" id="btn_friend" type="submit" value="Solicitar amistad">
+          <input type="hidden" name="userId" th:value="${user.getId()}">
+          <input class="btn" id="btn_friend" type="submit" value="Solicitar amistad">
         </form>
-    </div>
+      </div>
     </article>
-   
+
   </section>
   <h1 class="section-title"> TUS PUBLICACIONES</h1>
   <section>
-    
+
 
 
     <article class="card">
-      
 
-   <br>
 
-   <div class="publications">
-    <div class="publication" th:each="publication : ${publications}">
-      <div class="publication_meta">
-        
-        <div class="publication_text" th:text="${publication.getText()}">
-          El texto del mensaje
-        </div >
-        
-        <h6><span class="publication_restricted" th:if="${publication.isRestricted()}">restricted</span>
-        <span class="publication_public" th:if="${!publication.isRestricted()}">public</span>
-        <span class="timestamp" th:text="${publication.getTimestamp()}">15 de marzo de 2021</span></h6>
+      <br>
 
+      <div class="publications">
+        <div class="publication" th:each="publication : ${publications}">
+          <div class="publication_meta">
+            <h2 style="color: #c5bdeb; display: inline;">Título:  </h2>
+            <h2 class="tittle" th:text="${publication.getTittle()}" style="display: inline;"></h2>
+                
+             
+            <div  style="padding:40px;"><h5 class="publication_text" th:text="${publication.getText()}">
+              El texto del mensaje</h5></div>
+
+            <h6><span class="publication_restricted" th:if="${publication.isRestricted()}">restricted</span>
+              <span class="publication_public" th:if="${!publication.isRestricted()}">public</span>
+              <span class="tag" th:text="${publication.getTimestamp()}" style="transform:rotate(-10deg)">15 de marzo de 2021</span></h6>
+
+          </div>
+
+          <hr style="margin-left: 20%;margin-right: 20%;margin-top: 10%;margin-bottom: 10%;">
+
+        </div>
       </div>
-    
-      <hr style="margin-left: 20%;margin-right: 20%;margin-top: 10%;margin-bottom: 10%;">
-      
-    </div>
-  </div>
 
-      
+
     </article>
   </section>
 </body>

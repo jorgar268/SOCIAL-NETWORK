@@ -236,7 +236,7 @@ FIN CARD PERFIL
   padding: 0.5rem 0;
   font-size: 1rem;
 }
-de
+
 #btn_desc{
   background:rgb(0, 153, 255);
   width: 40%;
@@ -274,10 +274,36 @@ de
 a{
  color: #fff;
 }
-
 .publication_text{
   font-size: 150%;
 }
+.publication_restricted{
+background-color: #ff0000;
+color: #fff;
+padding:15px;
+}
+.publication_public{
+background-color: rgba(156, 252, 156, 0.863);
+color: rgb(27, 27, 27);
+padding:15px;
+}
+.tag {
+  border-radius: 3px 0 0 3px;
+  border-bottom: 13px solid transparent;
+  border-left: 10px solid transparent;
+  border-top: 13px solid transparent;
+  border-top-right-radius:40px ;
+  border-bottom-right-radius: 40px;
+  height: 26px;
+  line-height: 26px;
+  padding: 0 15px 0 15px;
+  margin: 0 10px 10px 0;
+  background-color: #c5bdeb;
+  color: #402f99;
+}
+
+
+
 
 
 

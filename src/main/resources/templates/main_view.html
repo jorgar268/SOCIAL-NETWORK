@@ -1,112 +1,125 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Social Network</title>
-        <!-- css -->
-        <link rel="stylesheet" href="public/stylePerfil.css" />
-        
-    </head>
-    <body>
- 
-      <section>
-        <br>
-        <article class="cardMain">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Social Network</title>
+  <!-- css -->
+  <link rel="stylesheet" href="public/stylePerfil.css" />
+
+</head>
+
+<body>
+
+  <section>
+    <br>
+    <article class="cardMain">
+      <br>
+      <h2>
+        <div th:text="${user.getName()}">User name here</div>
+      </h2>
+      <br>
+      <h4 style="color: cadetblue;">Añade tu publicación:</h4>
+      <!--- añadir publicaciones-->
+      <form th:action="@{/post}" th:object="${publication}" method="post">
+        <div>
+          <label>Título:</label><br>
+          <textarea th:field="*{tittle}" placeholder="título" required rows="20" cols="30"
+            style="height: 26px;"></textarea>
           <br>
-          <h2><div th:text="${user.getName()}">User name here</div></h2>
+          <label>Publicación:</label><br>
           <br>
-          <h4 style="color: cadetblue;">Añade tu publicación:</h4>
-                <!--- añadir publicaciones-->
-                <form th:action="@{/post}" th:object="${publication}" method="post">
-                  <div>
-                    <label>Título:</label><br>
-                    <textarea th:field="*{tittle}" placeholder="título" required  rows="20" cols="20"></textarea>
-                    <br>
-                    <label >Publicación:</label><br>
-                    <br>
-                    <textarea th:field="*{text}" placeholder="Escribe tu publicación" required  rows="20" cols="40"></textarea>
-                   <br>
-                    <input class="btn" type="submit" value="Post">
-                  </div>
-                  <div>
-                    <label>
-                      <input class="ckbx" type="checkbox" th:field="*{restricted}">
-                      For friends only
-                    </label>
-                  </div>
-                </form>
-    
-          
+          <textarea th:field="*{text}" placeholder="Escribe tu publicación" required rows="20" cols="40"></textarea>
           <br>
-          <button class="btn">
-            <form th:action="@{/logout}" method="post">
-              <input type="submit" value="Sign Out" />
+          <input class="btn" type="submit" value="Post">
+        </div>
+        <div>
+          <label>
+            <input class="ckbx" type="checkbox" th:field="*{restricted}">
+            For friends only
+          </label>
+        </div>
+      </form>
+
+
+      <br>
+      <button class="btn">
+        <form th:action="@{/logout}" method="post">
+          <input type="submit" value="Sign Out" />
+        </form>
+      </button>
+      <button class="btn" type="button">
+        <a th:href="@{/user/{id}(id=${user.getId()})}" th:text="'Ver Perfil'" style="text-decoration: none;">Pepe</a>
+      </button>
+      <br>
+      <br>
+      <div class="requests">
+        <div class="request" th:each="request : ${request}">
+          <div class="request_meta">
+            <h2><span class="user" th:text="'Peticion de '+ ${request.getSender().getName()}"></span></h2>
+            <form th:action="@{/answerFriendshipRequest}" method="post">
+              <input type="hidden" name="requestId" th:value="${request.getId()}">
+              <input class="btn" type="submit" name="action" value="Accept">
+              <input class="btn" type="submit" name="action" value="Decline">
             </form>
-          </button>
-          <button class="btn" type="button">
-            <a th:href="@{/user/{id}(id=${user.getId()})}" th:text="'Ver Perfil'" style="text-decoration: none;">Pepe</a>
-          </button>
-          <br>
-          <br>
-          <div class="requests">
-            <div class="request" th:each="request : ${request}">
-              <div class="request_meta">
-                <h2><span class="user" th:text="'Peticion de '+ ${request.getSender().getName()}"></span></h2>
-                <form th:action="@{/answerFriendshipRequest}" method="post">
-                  <input type="hidden" name="requestId" th:value="${request.getId()}">
-                  <input class="btn" type="submit" name="action" value="Accept">
-                  <input class="btn" type="submit" name="action" value="Decline">
-                </form>
-              </div>
-            </div>
           </div>
-          
-        </article>
+        </div>
+      </div>
 
-        <h1 class="section-title">PUBLICACIONES DE TUS AMIGOS</h1>
-      </section>
-      <section>
-        <!-- TARJETA 1-->
-        <article class="card">
-          <br>
-          
-          <br>
-    
-          <h1>Últimas publicaciones</h1>
-          <br>
-          <div class="publications">
-            <div class="publication" th:each="publication : ${publications}">
-              <div class="publication_meta">
-                <h2 style="color: #c5bdeb;">Publicación de:</h2><h2><span class="user" th:text="${publication.getUser().getName()}"><h4 style="display: inline;margin-left: 5px;">Pepe</h4></span></h2>
-                <h2 style="color: #c5bdeb;">Título:</h2><h2><span class="tittle" th:text="${publication.getTittle()}"><h4 style="display: inline;margin-left: 5px;">Pepe</h4></span></h2>
+    </article>
 
-                <div class="publication_text" th:text="${publication.getText()}">
-                  El texto del mensaje
-                </div >
+    <h1 class="section-title">PUBLICACIONES DE TUS AMIGOS</h1>
+  </section>
+  <section>
+    <!-- TARJETA 1-->
+    <article class="card">
+      <br>
+
+      <br>
+
+      <h1>Últimas publicaciones</h1>
+      <br>
+      <div class="publications">
+        <div class="publication" th:each="publication : ${publications}">
+          <div class="publication_meta">
+            <h2 style="color: #c5bdeb;">Publicación de:</h2>
+            <h2><span class="user" th:text="${publication.getUser().getName()}">
                 
-                <h6><span class="publication_restricted" th:if="${publication.isRestricted()}">restricted</span>
-                <span class="publication_public" th:if="${!publication.isRestricted()}">public</span>
-                <span class="timestamp" th:text="${publication.getTimestamp()}">15 de marzo de 2021</span></h6>
-
-              </div>
-              <br>
-              <button class="btn" type="button">
-                <a th:href="@{/user/{id}(id=${publication.getUser().getId()})}" th:text="'Ver Perfil de '+${publication.getUser().getName()}" style="text-decoration: none;">Pepe</a>
-              </button>
+              </span></h2>
+            <h2 style="color: #c5bdeb; display: inline;">Título:  </h2>
+            <h2 class="tittle" th:text="${publication.getTittle()}" style="display: inline;"></h2>
+                
               
-            <hr style="margin-left: 20%;margin-right: 20%;margin-top: 10%;margin-bottom: 10%;">
-            </div>
+
+            <div  style="padding:40px;"><h5 class="publication_text" th:text="${publication.getText()}">
+              El texto del mensaje</h5></div>
             
-            
-            
+
+            <h6><span class="publication_restricted" th:if="${publication.isRestricted()}">restricted</span>
+              <span class="publication_public" th:if="${!publication.isRestricted()}">public</span>
+              <span class="tag" th:text="${publication.getTimestamp()}" style="transform:rotate(-10deg)">15 de marzo de 2021</span></h6>
+
           </div>
-    
-        </article>
-      </section>
-    
-    
-    </body>
+          <br>
+          <button class="btn" type="button">
+            <a th:href="@{/user/{id}(id=${publication.getUser().getId()})}"
+              th:text="'Ver Perfil de '+${publication.getUser().getName()}" style="text-decoration: none;">Pepe</a>
+          </button>
+
+          <hr style="margin-left: 20%;margin-right: 20%;margin-top: 10%;margin-bottom: 10%;">
+        </div>
+
+
+
+      </div>
+
+    </article>
+  </section>
+
+
+</body>
+
 </html>

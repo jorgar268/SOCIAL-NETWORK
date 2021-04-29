@@ -68,7 +68,16 @@ public class MainController {
         model.addAttribute("publications", publications);
 
         List <FriendshipRequest> requests = friendshipRequestRepository.findByReceiverAndState(user, FriendshipRequest.State.OPEN);
-        model.addAttribute("request", requests.get(0));
+                if (!requests.isEmpty()) {
+            model.addAttribute("request", requests.get(0));
+        } else {
+          
+            if (!requests.isEmpty()) {
+                model.addAttribute("request", requests.get(0));
+            } else {
+                model.addAttribute("request", null);
+            }
+        }
 
         
         model.addAttribute("user", user);
