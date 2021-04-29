@@ -59,33 +59,18 @@ public class MainController {
     // CONTROL PAGINA PRINCIPAL
     @GetMapping(path = "/")
     public String mainView(Model model, Principal principal, Publication publication) {
-        User profileUser = new User();
-        profileUser.setName("Mary Jones");
-        profileUser.setDescription("Addicted to social networks");
         
         List<Publication> publications = new ArrayList<Publication>();
-        User daniuser = new User();
-        daniuser.setEmail("dani@example.com");
-        daniuser.setName("Daniel Dominguez");
-        daniuser.setDescription("Me encantan los deportes");
-
-        User userJohn = new User();
-        userJohn.setEmail("john@excample.com");
-        userJohn.setName("John Doe");
-        userJohn.setDescription("Professional couch potato");
-
-        User jorgeUser = new User();
-        jorgeUser.setName("Jorge García");
-        jorgeUser.setDescription("Estudiante UC3M apasionado por el desarrollo Frontend");
-        jorgeUser.setEmail("jorge@example.com");
-
+        User user = userRepository.findByEmail(principal.getName());
 
         publications = publicationRepository.findFirst10ByRestrictedIsFalseOrderByTimestampDesc();
         
-        model.addAttribute("profileUser", daniuser);
         model.addAttribute("publications", publications);
 
-        User user = userRepository.findByEmail(principal.getName());
+        List <FriendshipRequest> requests = friendshipRequestRepository.findByReceiverAndState(user, FriendshipRequest.State.OPEN);
+        model.addAttribute("request", requests.get(0));
+
+        
         model.addAttribute("user", user);
         
         return "main_view";
@@ -117,6 +102,7 @@ public class MainController {
                 model.addAttribute("request", null);
             }
         }
+
         model.addAttribute("sessionUser", sessionUser);
         model.addAttribute("user", user);
         model.addAttribute("publications", publicationRepository.findByUserOrderByTimestampDesc(user));

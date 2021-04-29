@@ -45,22 +45,30 @@
           <button class="btn" type="button">
             <a th:href="@{/user/{id}(id=${user.getId()})}" th:text="'Ver Perfil'" style="text-decoration: none;">Pepe</a>
           </button>
+          <br>
+          <br>
+          <div class="requests">
+            <div class="request" th:each="request : ${request}">
+              <div class="request_meta">
+                <h2><span class="user" th:text="'Peticion de '+ ${request.getSender().getName()}"></span></h2>
+                <form th:action="@{/answerFriendshipRequest}" method="post">
+                  <input type="hidden" name="requestId" th:value="${request.getId()}">
+                  <input class="btn" type="submit" name="action" value="Accept">
+                  <input class="btn" type="submit" name="action" value="Decline">
+                </form>
+              </div>
+            </div>
+          </div>
+          
         </article>
+
         <h1 class="section-title">PUBLICACIONES DE TUS AMIGOS</h1>
       </section>
       <section>
         <!-- TARJETA 1-->
         <article class="card">
           <br>
-          <!--<div class="profile_user" th:text="${profileUser.getName()}">
-            
-    
-    
-            <h2 style="color: blueviolet;">Profile user name</h2>
-              
-             -->
-            
-          </div>
+          
           <br>
     
           <h1>Últimas publicaciones</h1>
@@ -79,11 +87,7 @@
                 <span class="timestamp" th:text="${publication.getTimestamp()}">15 de marzo de 2021</span></h6>
 
               </div>
-              
               <br>
-              <button class="btnFollow" type="button" id="follow" >Seguir</button>
-              
-
               <button class="btn" type="button">
                 <a th:href="@{/user/{id}(id=${publication.getUser().getId()})}" th:text="'Ver Perfil de '+${publication.getUser().getName()}" style="text-decoration: none;">Pepe</a>
               </button>

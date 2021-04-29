@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import socialnetwork.model.FriendshipRequest;
 import socialnetwork.model.FriendshipRequestRepository;
 import socialnetwork.model.User;
+import socialnetwork.model.FriendshipRequest.State;
 
 @Service
 public class FriendshipRequestServiceImpl implements FriendshipRequestService {
@@ -39,6 +40,9 @@ public class FriendshipRequestServiceImpl implements FriendshipRequestService {
     @Override
     public void acceptFriendshipRequest(FriendshipRequest request, User receiver)
         throws FriendshipRequestException {
+            if (request.getState()==State.OPEN && request.getReceiver()==receiver){
+                
+            }
     }
 
     @Override

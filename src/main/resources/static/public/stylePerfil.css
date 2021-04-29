@@ -36,7 +36,6 @@ h2,
 h3,
 h4 {
   letter-spacing: 0.1rem;
-  text-transform: capitalize;
   line-height: 1.25;
   margin-bottom: 0.75rem;
 }
@@ -237,7 +236,7 @@ FIN CARD PERFIL
   padding: 0.5rem 0;
   font-size: 1rem;
 }
-
+de
 #btn_desc{
   background:rgb(0, 153, 255);
   width: 40%;
