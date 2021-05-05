@@ -48,9 +48,18 @@
         </form>
       </div>
 
+      <div th:if="${user != sessionUser && !sessionUser.getFriends().contains(user) && request!=null} ">
+        <br>
+        <button class="btn" id="btn_follow">Esperando respuesta...</button>
+        
+      </div>
+
       <div th:if="${user != sessionUser && sessionUser.getFriends().contains(user)} ">
         <br>
-          <button class="btn" id="btn_unfollow">Dejar de Seguir</button>
+        <form th:action="@{/requestUnFriendship}" method="post">
+          <input type="hidden" name="userId" th:value="${user.getId()}">
+          <input class="btn" id="btn_unfollow" type="submit" value="Dejar de seguir">
+        </form>
       </div>
 
     </article>

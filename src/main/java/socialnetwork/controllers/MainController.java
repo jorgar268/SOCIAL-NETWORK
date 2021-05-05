@@ -239,4 +239,29 @@ public class MainController {
         return "redirect:/";
     }
 
+    @PostMapping(path = "/requestUnFriendship")
+    public String requestUnFriendship(@RequestParam int userId, Principal principal, Model model) {
+        Optional<User> userOpt = userRepository.findById(userId);
+        if (!userOpt.isPresent()) {
+            
+            return "redirect:/";
+            
+        }
+        
+        User user = userRepository.findByEmail(principal.getName());
+        User receiver = userOpt.get();
+        List<User> friends = user.getFriends();
+        
+        for (int i=0;i<friends.size();i++){
+            if(friends.get(i)==receiver){
+                friends.remove(i);
+            }
+        }
+        System.out.println(user.getFriends().contains(receiver));
+        System.out.println(user.getFriends());
+        System.out.println(receiver.getFriends().contains(user));
+        System.out.println(receiver.getFriends());
+        return "redirect:/user/"+receiver.getId();
+
+    }
 }
