@@ -54,7 +54,7 @@
         
       </div>
 
-      <div th:if="${user != sessionUser && sessionUser.getFriends().contains(user)} ">
+      <div th:if="${user != sessionUser && sessionUser.getFriends().contains(user)==true}">
         <br>
         <form th:action="@{/requestUnFriendship}" method="post">
           <input type="hidden" name="userId" th:value="${user.getId()}">

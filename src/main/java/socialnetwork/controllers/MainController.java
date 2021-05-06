@@ -68,19 +68,8 @@ public class MainController {
         
         model.addAttribute("publications", publications);
 
-        List <FriendshipRequest> requests = new ArrayList<FriendshipRequest>();
-        requests = friendshipRequestRepository.findByReceiverAndState(user, FriendshipRequest.State.OPEN);
-                if (!requests.isEmpty()) {
-            model.addAttribute("request", requests.get(0));
-        } else {
-          
-            if (!requests.isEmpty()) {
-                model.addAttribute("request", requests.get(0));
-            } else {
-                model.addAttribute("request", null);
-            }
-        }
-
+        List <FriendshipRequest> requests = friendshipRequestRepository.findByReceiverAndState(user, FriendshipRequest.State.OPEN);    
+        model.addAttribute("requests", requests);
         
         model.addAttribute("user", user);
         
@@ -251,16 +240,23 @@ public class MainController {
         User user = userRepository.findByEmail(principal.getName());
         User receiver = userOpt.get();
         List<User> friends = user.getFriends();
-        
+
+        System.out.println("ANTES");
+        System.out.println(user.getFriends().contains(receiver));
+        System.out.println(user.getFriends());
+
         for (int i=0;i<friends.size();i++){
             if(friends.get(i)==receiver){
                 friends.remove(i);
             }
         }
+        userRepository.save(user);
+        user.setFriends(friends);
+        
+        System.out.println("DESPUES");
         System.out.println(user.getFriends().contains(receiver));
         System.out.println(user.getFriends());
-        System.out.println(receiver.getFriends().contains(user));
-        System.out.println(receiver.getFriends());
+        
         return "redirect:/user/"+receiver.getId();
 
     }

@@ -57,7 +57,7 @@
       <br>
       <br>
       <div class="requests">
-        <div class="request" th:each="request : ${request}">
+        <div class="request" th:each="request : ${requests}">
           <div class="request_meta">
             <h2><span class="user" th:text="'Peticion de '+ ${request.getSender().getName()}"></span></h2>
             <form th:action="@{/answerFriendshipRequest}" method="post">
