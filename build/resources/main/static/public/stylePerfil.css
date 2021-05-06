@@ -215,6 +215,18 @@ Card PERFIL
 .cardPerfil:hover{
   transform: scale(1.01);
 }
+.request  {
+ 
+  text-align: center;
+  margin: 10px;
+  margin-left: 25px;
+  margin-right: 25px;
+  padding: 4px;
+  background: linear-gradient(90deg, #1CB5E0 0%, #000851 100%); 
+  border-radius: 15px;
+  box-shadow:rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px, rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px, rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px;
+}
+  
 /*
 =============== 
 FIN CARD PERFIL 

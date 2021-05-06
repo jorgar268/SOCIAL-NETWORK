@@ -9,6 +9,10 @@
   <title>Social Network</title>
   <!-- css -->
   <link rel="stylesheet" href="public/stylePerfil.css" />
+  <link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
+/>
 
 </head>
 
@@ -56,15 +60,17 @@
       </button>
       <br>
       <br>
+      <h2><i class="fas fa-user-plus" style="color: aquamarine;"></i>Tienes <span th:text="${requests.size()}"></span> peticiones de amistad </h2>
       <div class="requests">
         <div class="request" th:each="request : ${requests}">
           <div class="request_meta">
-            <h2><span class="user" th:text="'Peticion de '+ ${request.getSender().getName()}"></span></h2>
+            <h2 style="color: azure;"><span class="user" th:text="'Peticion de '+ ${request.getSender().getName()}" ></span></h2>
             <form th:action="@{/answerFriendshipRequest}" method="post">
               <input type="hidden" name="requestId" th:value="${request.getId()}">
-              <input class="btn" type="submit" name="action" value="Accept">
-              <input class="btn" type="submit" name="action" value="Decline">
+              <input  style="background-color: aqua;color: black;" class="btn" type="submit" name="action" value="Aceptar">
+              <input style="background-color:lightcoral;color: black;" class="btn" type="submit" name="action" value="Rechazar">
             </form>
+            <br>
           </div>
         </div>
       </div>
