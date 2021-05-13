@@ -22,6 +22,10 @@
         <div th:text="${user.getEmail()}">User name here</div>
       </h4>
 
+      <div th:if="${user != sessionUser && sessionUser.getFriends().contains(user)==true}">
+        <h6>Sois amigos</h6>
+      </div>
+
       <div th:if="${user.getId() == sessionUser.getId()}">
         <br>
         <a href="/settings">
@@ -40,7 +44,7 @@
       </a>
 
 
-      <div th:if="${user != sessionUser && !sessionUser.getFriends().contains(user) && request==null} ">
+      <div th:if="${user != sessionUser && !sessionUser.getFriends().contains(user) && requests==null} ">
         <br>
         <form th:action="@{/requestFriendship}" method="post">
           <input type="hidden" name="userId" th:value="${user.getId()}">
@@ -48,7 +52,7 @@
         </form>
       </div>
 
-      <div th:if="${user != sessionUser && !sessionUser.getFriends().contains(user) && request!=null} ">
+      <div th:if="${user != sessionUser && !sessionUser.getFriends().contains(user) && requests!=null} ">
         <br>
         <button class="btn" id="btn_follow">Esperando respuesta...</button>
         
@@ -61,6 +65,26 @@
           <input class="btn" id="btn_unfollow" type="submit" value="Dejar de seguir">
         </form>
       </div>
+
+      
+      <div th:if="${user.getId() == sessionUser.getId()}">
+        <br>
+        <br>
+        <h2><i class="fas fa-user-plus" style="color: aquamarine; padding-right: 3%;"></i>Tienes <span th:text="${requests.size()}"></span> peticiones de amistad </h2>
+        <div class="requests">
+          <div class="request" th:each="request : ${requests}">
+            <div class="request_meta">
+              <h2 style="color: azure;"><span class="user" th:text="'Peticion de '+ ${request.getSender().getName()}" ></span></h2>
+              <form th:action="@{/answerFriendshipRequest}" method="post">
+                <input type="hidden" name="requestId" th:value="${request.getId()}">
+                <input  style="background-color: aqua;color: black;" class="btn" type="submit" name="action" value="Aceptar">
+                <input style="background-color:lightcoral;color: black;" class="btn" type="submit" name="action" value="Rechazar">
+              </form>
+              <br>
+            </div>
+          </div>
+        </div>
+    </div>
 
     </article>
 
@@ -89,6 +113,10 @@
               <span class="publication_public" th:if="${!publication.isRestricted()}">public</span>
               <span class="tag" th:text="${publication.getTimestamp()}" style="transform:rotate(-10deg)">15 de marzo de 2021</span></h6>
 
+            <form th:action="@{/deletePub}" method="post">
+              <input type="hidden" name="pubId" th:value="${publication.getId()}">
+              <input class="btn" id="btn_unfollow" type="submit" value="Eliminar Publicacion">
+            </form>
           </div>
 
           <hr style="margin-left: 20%;margin-right: 20%;margin-top: 10%;margin-bottom: 10%;">

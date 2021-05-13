@@ -92,20 +92,20 @@ public class MainController {
         User sessionUser = userRepository.findByEmail(principal.getName());
 
         List<FriendshipRequest> requests = friendshipRequestRepository.findBySenderAndReceiverAndState(sessionUser, user, FriendshipRequest.State.OPEN);
-        if (!requests.isEmpty()) {
-            model.addAttribute("request", requests.get(0));
-        } else {
-            requests = friendshipRequestRepository.findBySenderAndReceiverAndState(user, sessionUser, FriendshipRequest.State.OPEN);
-            if (!requests.isEmpty()) {
-                model.addAttribute("request", requests.get(0));
-            } else {
-                model.addAttribute("request", null);
-            }
-        }
+        model.addAttribute("requests", requests);
+
+        List<Publication> publications = new ArrayList<Publication>();
+        if(sessionUser.getFriends().contains(user)){
+            publications = publicationRepository.findByUserOrderByTimestampDesc(user);
+        }else{
+            publications = publicationRepository.findByUserAndRestrictedIsFalseOrderByTimestampDesc(user);
+        } 
+       
+    
 
         model.addAttribute("sessionUser", sessionUser);
         model.addAttribute("user", user);
-        model.addAttribute("publications", publicationRepository.findByUserOrderByTimestampDesc(user));
+        model.addAttribute("publications", publications);
         return "user_view";
     }
 
@@ -209,7 +209,7 @@ public class MainController {
         }
         FriendshipRequest request = requestOpt.get();
         User user = request.getSender();
-        if(action.equals("Accept")){
+        if(action.equals("Aceptar")){
             try {
                 friendshipRequestService.acceptFriendshipRequest(request, sessionUser);
                 return "redirect:/user/"+user.getId();
@@ -217,7 +217,7 @@ public class MainController {
             } catch (FriendshipRequestException e) {
                 return "redirect:/";
             }
-        }else if(action.equals("Decline")){
+        }else if(action.equals("Rechazar")){
             try {
                 friendshipRequestService.declineFriendshipRequest(request, sessionUser);
                 return "redirect:/";
@@ -241,10 +241,6 @@ public class MainController {
         User receiver = userOpt.get();
         List<User> friends = user.getFriends();
 
-        System.out.println("ANTES");
-        System.out.println(user.getFriends().contains(receiver));
-        System.out.println(user.getFriends());
-
         for (int i=0;i<friends.size();i++){
             if(friends.get(i)==receiver){
                 friends.remove(i);
@@ -253,11 +249,27 @@ public class MainController {
         userRepository.save(user);
         user.setFriends(friends);
         
-        System.out.println("DESPUES");
-        System.out.println(user.getFriends().contains(receiver));
-        System.out.println(user.getFriends());
-        
         return "redirect:/user/"+receiver.getId();
 
     }
+
+    @PostMapping(path = "/deletePub")
+    public String deletePub(@RequestParam int pubId, Principal principal, Model model) {
+        
+        Optional<Publication> pubOpt = publicationRepository.findById(pubId);
+        if (!pubOpt.isPresent()) {
+            
+            return "redirect:/";
+            
+        }
+        Publication pub = pubOpt.get();
+        User user = pub.getUser();
+        
+        if(user.getPublications().contains(pub)){
+            user.getPublications().remove(pub);
+        }
+        userRepository.save(user);
+        
+        return "redirect:/";
+    } 
 }
