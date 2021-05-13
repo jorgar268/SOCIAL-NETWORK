@@ -123,7 +123,7 @@
 
             <form th:action="@{/deletePub}" method="post">
               <input type="hidden" name="pubId" th:value="${publication.getId()}">
-              <input class="btn" id="btn_unfollow" type="submit" value="Eliminar Publicacion">
+              <button class="btn" style="background-color:red;margin-top:25px"><input id="btn_unfollow" value="Eliminar" ba="" style="text-decoration: none;background-color: inherit;"><i class="fas fa-trash-alt"></i></button>
             </form>
           </div>
 

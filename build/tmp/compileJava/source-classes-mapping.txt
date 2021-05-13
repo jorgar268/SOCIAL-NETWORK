@@ -6,8 +6,8 @@ socialnetwork/model/Publication.java
  socialnetwork.model.Publication
 socialnetwork/services/UserService.java
  socialnetwork.services.UserService
-socialnetwork/services/UserServiceImpl.java
- socialnetwork.services.UserServiceImpl
+socialnetwork/controllers/MainController.java
+ socialnetwork.controllers.MainController
 socialnetwork/model/FriendshipRequest.java
  socialnetwork.model.FriendshipRequest
  socialnetwork.model.FriendshipRequest$State
@@ -27,5 +27,10 @@ socialnetwork/services/FriendshipRequestException.java
  socialnetwork.services.FriendshipRequestException
 socialnetwork/model/FriendshipRequestRepository.java
  socialnetwork.model.FriendshipRequestRepository
+<<<<<<< HEAD
 socialnetwork/controllers/MainController.java
  socialnetwork.controllers.MainController
+=======
+socialnetwork/services/UserServiceImpl.java
+ socialnetwork.services.UserServiceImpl
+>>>>>>> 4cab78c5ba9902bce1fe5106424a9993906c8d24
