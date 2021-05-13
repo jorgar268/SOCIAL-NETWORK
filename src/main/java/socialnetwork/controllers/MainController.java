@@ -76,6 +76,18 @@ public class MainController {
         return "main_view";
     }
 
+    // CONTROL PAGINA DISCOVER
+    @GetMapping(path = "/Discover")
+    public String mainView(Model model, Principal principal){
+
+        Iterable<User> allUsers= userRepository.findAll();
+        System.out.println(allUsers);
+        model.addAttribute("allUsers", allUsers);
+
+        return "Discover";
+    
+    } 
+
     
 
 
@@ -95,7 +107,7 @@ public class MainController {
         if(!requests.isEmpty()){
             model.addAttribute("requests", requests);
         }else{
-            model.addAttribute("requests", null);
+            model.addAttribute("requests", new ArrayList<FriendshipRequest>());
         }
         
 

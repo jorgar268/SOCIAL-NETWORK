@@ -33,7 +33,7 @@
       <form th:action="@{/post}" th:object="${publication}" method="post">
         <div>
           <label>Título:</label><br>
-          <textarea th:field="*{tittle}" placeholder="título" required rows="20" cols="30"
+          <textarea th:field="*{tittle}" placeholder="Título" required rows="20" cols="30"
             style="height: 26px;"></textarea>
           <br>
           <label>Publicación:</label><br>
@@ -78,6 +78,14 @@
       </div>
 
     </article>
+
+    <br>
+      <h2>
+        <button class="btn" type="button">
+          <a href="/Discover" style="text-decoration: none;">Descubir gente</a>
+        </button>
+      </h2>
+    <br>
 
     <h1 class="section-title">PUBLICACIONES DE TUS AMIGOS</h1>
   </section>
