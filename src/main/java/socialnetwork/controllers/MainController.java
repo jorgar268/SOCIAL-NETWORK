@@ -263,13 +263,18 @@ public class MainController {
             
         }
         Publication pub = pubOpt.get();
-        User user = pub.getUser();
-        
-        if(user.getPublications().contains(pub)){
-            user.getPublications().remove(pub);
+
+        User user = userRepository.findByEmail(pub.getUser().getEmail());
+        System.out.println(user.getName());
+        if(user.getPublications().contains(pub)==true){
+            for (int i = 0;i<user.getPublications().size();i++){
+                if(user.getPublications().get(i) == pub){
+                    user.getPublications().remove(i);
+                }
+            }
         }
+        System.out.println(user.getPublications());
         userRepository.save(user);
-        
-        return "redirect:/";
+        return "redirect:/user/"+user.getId();
     } 
 }
