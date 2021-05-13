@@ -15,7 +15,6 @@
   <section>
     <article class="cardPerfil">
       <header></header>
-      <!--<div id="usr_photo" class="img">foto aqui</div>-->
       <br>
       <h2>
         <div th:text="${user.getName()}">User name here</div>
@@ -24,32 +23,23 @@
         <div th:text="${user.getEmail()}">User name here</div>
       </h4>
 
-      
+
       <div th:if="${user.getDescription() != null}">
         <h5 th:text="${user.getDescription}">Descripcion</h5>
       </div>
-    
+
       <div th:if="${user != sessionUser && sessionUser.getFriends().contains(user)==true}">
         <h6>Sois amigos</h6>
       </div>
 
-      
+
       <div th:if="${user.getId() == sessionUser.getId()}">
         <br>
         <a href="/settings">
-          <button class="btn" id="btn_desc" type="button">Editar Descripcion</button>
+          <button class="btn" id="btn_desc" type="button">Editar Perfil</button>
         </a>
       </div>
       <br>
-      <button class="btn">
-        <form th:action="@{/logout}" method="post">
-          <input type="submit" value="Sign Out" />
-        </form>
-      </button>
-      <!--<button type="button" id="follow" class="btn">Seguir</button>-->
-      <a href="/">
-        <button class="btn" type="button">Volver</button>
-      </a>
 
 
       <div th:if="${user != sessionUser && !sessionUser.getFriends().contains(user) && requests==null} ">
@@ -63,7 +53,7 @@
       <div th:if="${user != sessionUser && !sessionUser.getFriends().contains(user) && requests!=null} ">
         <br>
         <button class="btn" id="btn_follow">Esperando respuesta...</button>
-        
+
       </div>
 
       <div th:if="${user != sessionUser && sessionUser.getFriends().contains(user)==true}">
@@ -73,27 +63,44 @@
           <input class="btn" id="btn_unfollow" type="submit" value="Dejar de seguir">
         </form>
       </div>
+      <br>
+      <h4><strong>Social: </strong></h4>
+      <h5 th:text="${user.getFriends().size()+' amigos'}"></h5>
 
-      
+
       <div th:if="${user.getId() == sessionUser.getId()}">
         <br>
         <br>
-        <h2><i class="fas fa-user-plus" style="color: aquamarine; padding-right: 3%;"></i>Tienes <span th:text="${requests.size()}"></span> peticiones de amistad </h2>
+        <h2><i class="fas fa-user-plus" style="color: aquamarine; padding-right: 3%;"></i>Tienes <span
+            th:text="${requests.size()}"></span> peticiones de amistad </h2>
         <div class="requests">
           <div class="request" th:each="request : ${requests}">
             <div class="request_meta">
-              <h2 style="color: azure;"><span class="user" th:text="'Peticion de '+ ${request.getSender().getName()}" ></span></h2>
+              <h2 style="color: azure;"><span class="user"
+                  th:text="'Peticion de '+ ${request.getSender().getName()}"></span></h2>
               <form th:action="@{/answerFriendshipRequest}" method="post">
                 <input type="hidden" name="requestId" th:value="${request.getId()}">
-                <input  style="background-color: aqua;color: black;" class="btn" type="submit" name="action" value="Aceptar">
-                <input style="background-color:lightcoral;color: black;" class="btn" type="submit" name="action" value="Rechazar">
+                <input style="background-color: aqua;color: black;" class="btn" type="submit" name="action"
+                  value="Aceptar">
+                <input style="background-color:lightcoral;color: black;" class="btn" type="submit" name="action"
+                  value="Rechazar">
               </form>
               <br>
             </div>
           </div>
         </div>
-    </div>
+      </div>
 
+      <br>
+      <button class="btn">
+        <form th:action="@{/logout}" method="post">
+          <input type="submit" value="Sign Out" />
+        </form>
+      </button>
+      <!--<button type="button" id="follow" class="btn">Seguir</button>-->
+      <a href="/">
+        <button class="btn" type="button">Volver</button>
+      </a>
     </article>
 
   </section>
@@ -110,21 +117,20 @@
       <div class="publications">
         <div class="publication" th:each="publication : ${publications}">
           <div class="publication_meta">
-            <h2 style="color: #c5bdeb; display: inline;">Título:  </h2>
+            <h2 style="color: #c5bdeb; display: inline;">Título: </h2>
             <h2 class="tittle" th:text="${publication.getTittle()}" style="display: inline;"></h2>
-                
-             
-            <div  style="padding:40px;"><h5 class="publication_text" th:text="${publication.getText()}">
-              El texto del mensaje</h5></div>
+
+
+            <div style="padding:40px;">
+              <h5 class="publication_text" th:text="${publication.getText()}">
+                El texto del mensaje</h5>
+            </div>
 
             <h6><span class="publication_restricted" th:if="${publication.isRestricted()}">restricted</span>
               <span class="publication_public" th:if="${!publication.isRestricted()}">public</span>
-              <span class="tag" th:text="${publication.getTimestamp()}" style="transform:rotate(-10deg)">15 de marzo de 2021</span></h6>
+              <span class="tag" th:text="${publication.getTimestamp()}" style="transform:rotate(-10deg)">15 de marzo de
+                2021</span></h6>
 
-            <form th:action="@{/deletePub}" method="post">
-              <input type="hidden" name="pubId" th:value="${publication.getId()}">
-              <button class="btn" style="background-color:red;margin-top:25px"><input id="btn_unfollow" value="Eliminar" ba="" style="text-decoration: none;background-color: inherit;"><i class="fas fa-trash-alt"></i></button>
-            </form>
           </div>
 
           <hr style="margin-left: 20%;margin-right: 20%;margin-top: 10%;margin-bottom: 10%;">

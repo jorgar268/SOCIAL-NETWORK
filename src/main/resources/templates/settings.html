@@ -9,23 +9,33 @@
 </head>
 
 <body>
-  <h1 class="section-title"><i style="color: gainsboro;" class="fa fa-cog" aria-hidden="true"></i> AJUSTES <i style="color: gainsboro;" class="fa fa-cog" aria-hidden="true"></i></h1>
+  <h1 class="section-title"><i style="color: gainsboro;" class="fa fa-cog" aria-hidden="true"></i> AJUSTES <i
+      style="color: gainsboro;" class="fa fa-cog" aria-hidden="true"></i></h1>
   <section>
-    <article class="cardPerfil">
-    
 
-        <form th:action="@{/postSettings}" method="post" th:object="${user}">
-            <div>
-              <br>
-              <br>
-                <h3>Actualiza tu perfil:</h3>
-                <br>
-                <textarea th:field="*{description}" placeholder="Escribe tu descripcion" required  rows="20" cols="40"  ></textarea>
-                <br>
-                <input class="btn" style="padding-left: 5px;padding-right: 5px; background-color: slateblue;" type="submit" value="Actualizar">
-            </div>
-            
-        </form>
+    <article class="cardPerfil">
+      <form th:action="@{/postSettings}" method="post" th:object="${user}">
+        <div>
+          <br>
+          <br>
+          <h3>Actualiza tu perfil:</h3>
+          <br>
+          <h2>Nueva descripción:</h2>
+          <textarea th:field="*{description}" placeholder="Escribe tu descripcion"  rows="20"
+            cols="40"></textarea>
+          <br>
+          <br>
+          <h2>Nuevo nombre de usuario:</h2>
+          <textarea th:field="*{name}" placeholder="Escribe tu nuevo nombre" rows="20"
+            cols="30" style="height: 26px;"></textarea>
+          <br>
+          <br>
+          <input class="btn" style="padding-left: 5px;padding-right: 5px; background-color: slateblue;" type="submit"
+          value="Actualizar">
+        
+        </div>
+
+      </form>
 
     </article>
 </body>
