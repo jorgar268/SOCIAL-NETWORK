@@ -65,7 +65,7 @@
       </div>
       <br>
       <h4><strong>Social: </strong></h4>
-      <h5 th:text="${user.getFriends().size()+' amigos'}"></h5>
+      <h5 th:text="'Amigos: '+' '+${user.getFriends().size()}"></h5>
 
 
       <div th:if="${user.getId() == sessionUser.getId()}">
