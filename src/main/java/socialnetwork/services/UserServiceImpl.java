@@ -18,6 +18,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public void register(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        userRepository.save(user); //error aqui
+        userRepository.save(user);
     }
 }
