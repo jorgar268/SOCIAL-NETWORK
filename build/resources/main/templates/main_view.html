@@ -57,9 +57,10 @@
           <input type="submit" value="Sign Out" />
         </form>
       </button>
-      <button class="btn" type="button">
-        <a th:href="@{/user/{id}(id=${user.getId()})}" th:text="'Ver Perfil'" style="text-decoration: none;">Pepe</a>
-      </button>
+      
+      <a th:href="@{/user/{id}(id=${user.getId()})}">
+        <button class="btn" type="button" th:text="'Ver Perfil'" style="text-decoration: none;"></button>
+      </a>
       <br>
       <br>
       <h2><i class="fas fa-user-plus" style="color: aquamarine; padding-right: 3%;"></i>Tienes <span th:text="${requests.size()}"></span> peticiones de amistad </h2>
@@ -69,7 +70,7 @@
             <h2 style="color: azure;"><span class="user" th:text="'Peticion de '+ ${request.getSender().getName()}" ></span></h2>
             <form th:action="@{/answerFriendshipRequest}" method="post">
               <input type="hidden" name="requestId" th:value="${request.getId()}">
-              <input  style="background-color: aqua;color: black;" class="btn" type="submit" name="action" value="Aceptar">
+              <input style="background-color: aqua;color: black;" class="btn" type="submit" name="action" value="Aceptar">
               <input style="background-color:lightcoral;color: black;" class="btn" type="submit" name="action" value="Rechazar">
             </form>
             <br>
@@ -121,10 +122,9 @@
 
           </div>
           <br>
-          <button class="btn" type="button">
-            <a th:href="@{/user/{id}(id=${publication.getUser().getId()})}"
-              th:text="'Ver Perfil de '+${publication.getUser().getName()}" style="text-decoration: none;">Pepe</a>
-          </button>
+          <a th:href="@{/user/{id}(id=${publication.getUser().getId()})}">
+          <button class="btn" type="button" th:text="'Ver Perfil de '+${publication.getUser().getName()}" style="text-decoration: none;">Pepe</button>
+        </a>
 
           <hr style="margin-left: 20%;margin-right: 20%;margin-top: 10%;margin-bottom: 10%;">
         </div>

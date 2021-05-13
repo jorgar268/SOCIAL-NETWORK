@@ -2,7 +2,9 @@ package socialnetwork.controllers;
 
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -35,6 +37,7 @@ import socialnetwork.model.PublicationRepository;
 import java.util.Optional;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
+
 import org.springframework.web.bind.annotation.PathVariable;
 
 
@@ -65,7 +68,6 @@ public class MainController {
         User user = userRepository.findByEmail(principal.getName());
 
         publications = publicationRepository.findFirst20ByUserInOrderByTimestampDesc(user.getFriends());
-        System.out.println(user.getFriends().size());
         model.addAttribute("publications", publications);
 
         List <FriendshipRequest> requests = friendshipRequestRepository.findByReceiverAndState(user, FriendshipRequest.State.OPEN);    
@@ -102,13 +104,21 @@ public class MainController {
         }
         User user = userOpt.get();
         User sessionUser = userRepository.findByEmail(principal.getName());
-
         List<FriendshipRequest> requests = friendshipRequestRepository.findBySenderAndReceiverAndState(sessionUser, user, FriendshipRequest.State.OPEN);
-        if(!requests.isEmpty()){
-            model.addAttribute("requests", requests);
+        
+        if(sessionUser==user){
+        
+            requests = friendshipRequestRepository.findByReceiverAndState(sessionUser, FriendshipRequest.State.OPEN);
+            
+        
         }else{
-            model.addAttribute("requests", new ArrayList<FriendshipRequest>());
+            if(requests.isEmpty()){
+                requests = null;
+            }
         }
+        
+        model.addAttribute("requests", requests);
+        
         
 
         List<Publication> publications = new ArrayList<Publication>();
@@ -126,73 +136,6 @@ public class MainController {
         return "user_view";
     }
 
-
-    // CONTROL SUBMIT USUARIO AL REGISTRAR
-    @PostMapping(path = "/register")
-    public String register(@Valid @ModelAttribute("user") User user,
-                        BindingResult bindingResult,
-                        @RequestParam String passwordRepeat) {
-        if (bindingResult.hasErrors()) {
-            return "register";
-        }
-        if (userRepository.findByEmail(user.getEmail()) != null) {
-            return "redirect:register?duplicate_email";
-        }
-        if (user.getPassword().equals(passwordRepeat)) {
-            userService.register(user);
-        } else {
-            return "redirect:register?passwords";
-        }
-        return "redirect:login?registered";
-    }
-
-    // CONTROL DE PANTALLA LOGIN
-    @GetMapping(path = "/login")
-    public String loginForm() {
-        return "login";
-    }
-
-    //CONTROL PANTALLA REGISTER
-    @GetMapping(path = "/register")
-    public String register(User user) {
-        return "register";
-    }
-
-    // CONTROL POST DE PUBLICACION DESDE MAIN_VIEW
-    @PostMapping(path = "/post")
-    public String postPublication(@Valid @ModelAttribute("publication") Publication publication,
-                                BindingResult bindingResult,
-                                Principal principal) {
-        if (bindingResult.hasErrors()) {
-            return "redirect:/";
-        }
-        User user = userRepository.findByEmail(principal.getName());
-        publication.setUser(user);
-        publication.setTimestamp(new Date());
-        publicationRepository.save(publication);
-        return "redirect:/";
-    }
-
-
-    @GetMapping(path = "/settings")
-    public String settingsView(User user){
-
-        return "settings";
-    }
-
-    @PostMapping(path = "/postSettings")
-    public String settings(
-                        @RequestParam String description,
-                        Principal principal) {
-        
-        
-        User user = userRepository.findByEmail(principal.getName());
-        user.setDescription(description);
-        userRepository.save(user);
-
-        return "redirect:/user/"+user.getId();
-    }
-    
     @PostMapping(path = "/requestFriendship")
     public String requestFriendship(@RequestParam int userId, Principal principal) {
         Optional<User> userOpt = userRepository.findById(userId);
@@ -274,28 +217,84 @@ public class MainController {
 
     }
 
-    @PostMapping(path = "/deletePub")
-    public String deletePub(@RequestParam int pubId, Principal principal, Model model) {
-        
-        Optional<Publication> pubOpt = publicationRepository.findById(pubId);
-        if (!pubOpt.isPresent()) {
-            
-            return "redirect:/";
-            
-        }
-        Publication pub = pubOpt.get();
 
-        User user = userRepository.findByEmail(pub.getUser().getEmail());
-        System.out.println(user.getName());
-        if(user.getPublications().contains(pub)==true){
-            for (int i = 0;i<user.getPublications().size();i++){
-                if(user.getPublications().get(i) == pub){
-                    user.getPublications().remove(i);
-                }
-            }
+    // CONTROL SUBMIT USUARIO AL REGISTRAR
+    @PostMapping(path = "/register")
+    public String register(@Valid @ModelAttribute("user") User user,
+                        BindingResult bindingResult,
+                        @RequestParam String passwordRepeat) {
+        if (bindingResult.hasErrors()) {
+            return "register";
         }
-        System.out.println(user.getPublications());
-        userRepository.save(user);
-        return "redirect:/user/"+user.getId();
-    } 
+        if (userRepository.findByEmail(user.getEmail()) != null) {
+            return "redirect:register?duplicate_email";
+        }
+        if (user.getPassword().equals(passwordRepeat)) {
+            userService.register(user);
+        } else {
+            return "redirect:register?passwords";
+        }
+        return "redirect:login?registered";
+    }
+
+    // CONTROL DE PANTALLA LOGIN
+    @GetMapping(path = "/login")
+    public String loginForm() {
+        return "login";
+    }
+
+    //CONTROL PANTALLA REGISTER
+    @GetMapping(path = "/register")
+    public String register(User user) {
+        return "register";
+    }
+
+    // CONTROL POST DE PUBLICACION DESDE MAIN_VIEW
+    @PostMapping(path = "/post")
+    public String postPublication(@Valid @ModelAttribute("publication") Publication publication,
+                                BindingResult bindingResult,
+                                Principal principal) {
+        if (bindingResult.hasErrors()) {
+            return "redirect:/";
+        }
+        User user = userRepository.findByEmail(principal.getName());
+        publication.setUser(user);
+        publication.setTimestamp(new Date());
+        publicationRepository.save(publication);
+        return "redirect:/";
+    }
+
+
+    // PANTALLA SETTINGS
+    @GetMapping(path = "/settings")
+    public String settingsView(User user){
+
+        return "settings";
+    }
+
+    @PostMapping(path = "/postSettings")
+    public String settings(
+                        @RequestParam String description,
+                        Principal principal, @RequestParam String name) {
+        
+        
+        User user = userRepository.findByEmail(principal.getName());
+        if(name.equals("") && description.equals("")){
+            return "redirect:/user/"+user.getId();
+        }else{
+            if(name.equals("")){
+                user.setDescription(description);
+            }else if(description.equals("")){
+                user.setName(name);
+            }else{
+                user.setName(name);
+                user.setDescription(description);
+            }
+            
+            userRepository.save(user);
+            return "redirect:/user/"+user.getId();
+        }
+    
+    }
+
 }
