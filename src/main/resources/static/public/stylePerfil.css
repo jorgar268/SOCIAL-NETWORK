@@ -17,6 +17,11 @@ body {
   font-size: 0.875rem;
 }
 
+#discover_btn{
+  margin-left: 50%;
+}
+
+
 form{
   text-decoration: none;
   background-color: transparent; 

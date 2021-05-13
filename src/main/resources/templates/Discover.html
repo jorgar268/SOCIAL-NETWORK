@@ -9,14 +9,25 @@
 </head>
 
 <body>
-  <h1 class="section-title">AJUSTES</h1>
+  <h1 class="section-title">Usuarios de la red Social</h1>
   <section>
-    <article class="cardPerfil">
+    <article class="card">
     
         <div class="allUsers">
             <div class="allUsers" th:each="user : ${allUsers}">
-                <div class="publication_meta">
-                    <h2><span class="user" th:text="${user.getName()}">
+                <div class="users_meta">
+                    <h2><span class="user" th:text="${user.getName()}"></span></h2>
+                </div>
+                
+                <br>
+                <button class="btn" type="button">
+                    <a th:href="@{/user/{id}(id=${user.getId()})}"
+                        th:text="'Ver Perfil de '+${user.getName()}" style="text-decoration: none;">Pepe</a>
+                </button>
+
+                <hr style="margin-left: 20%;margin-right: 20%;margin-top: 10%;margin-bottom: 10%;">
+            </div>
+        </div>
 
     </article>
 </body>
