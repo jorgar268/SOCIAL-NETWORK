@@ -11,25 +11,28 @@
 <body>
   <h1 class="section-title">Usuarios de la red Social</h1>
   <section>
-    <article class="card">
+   
     
-        <div class="allUsers">
-            <div class="allUsers" th:each="user : ${allUsers}">
+       
+            <div class="friends" th:each="user : ${allUsers}">
                 <div class="users_meta">
                     <h2><span class="user" th:text="${user.getName()}"></span></h2>
                 </div>
                 
-                <br>
-                <button class="btn" type="button">
+                <div th:if="${user.getDescription() != null}">
+                    <h5 th:text="${user.getDescription}">Descripcion</h5>
+                  </div>
+                  <br>
+                <button class="btn" style="margin-bottom:5px;background:linear-gradient(to left, #59c173, #a17fe0, #5d26c1);;" type="button">
                     <a th:href="@{/user/{id}(id=${user.getId()})}"
                         th:text="'Ver Perfil de '+${user.getName()}" style="text-decoration: none;">Pepe</a>
                 </button>
 
-                <hr style="margin-left: 20%;margin-right: 20%;margin-top: 10%;margin-bottom: 10%;">
+                
             </div>
-        </div>
+       
 
-    </article>
+    
 </body>
 
 </html>
