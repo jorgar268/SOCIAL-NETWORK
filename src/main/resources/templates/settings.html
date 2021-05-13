@@ -9,16 +9,20 @@
 </head>
 
 <body>
-  <h1 class="section-title">AJUSTES</h1>
+  <h1 class="section-title"><i style="color: gainsboro;" class="fa fa-cog" aria-hidden="true"></i> AJUSTES <i style="color: gainsboro;" class="fa fa-cog" aria-hidden="true"></i></h1>
   <section>
     <article class="cardPerfil">
     
 
         <form th:action="@{/postSettings}" method="post" th:object="${user}">
             <div>
+              <br>
+              <br>
+                <h3>Actualiza tu perfil:</h3>
+                <br>
                 <textarea th:field="*{description}" placeholder="Escribe tu descripcion" required  rows="20" cols="40"  ></textarea>
                 <br>
-                <input class="btn" type="submit" value="Post">
+                <input class="btn" style="padding-left: 5px;padding-right: 5px; background-color: slateblue;" type="submit" value="Actualizar">
             </div>
             
         </form>
