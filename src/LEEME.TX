@@ -1,0 +1,9 @@
+FUNCIONALIDADES EXTRA:
+
+En cuanto a la presentación de la página web hemos añadido : iconos en las pestañas de la app, inicio una casa perfin una silueta de perfil etc, se pueden ver en los links de las distintas views. Las publicaciones tienen public en color verde si son publicas y restricted en color rojo.
+
+En cuanto a lógica algo mas avanzada hemos añadido:
+
+Que se muestren los usuarios dejar de seguir a un contacto.
+
+Num total de usuarios de la web publicaciones de solicitudes y de publicaciones 
