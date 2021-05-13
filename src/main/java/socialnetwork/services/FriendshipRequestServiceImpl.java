@@ -45,18 +45,14 @@ public class FriendshipRequestServiceImpl implements FriendshipRequestService {
             if (request.getState()!=State.OPEN && request.getReceiver()!=receiver){
                 throw new FriendshipRequestException("Error en la solicitud");
             }else{
-                List<User> friendsSender = new ArrayList<User>();
-                List<User> friendsReceiver = new ArrayList<User>();
 
                 request.setState(State.ACCEPTED);
                 request.setReceiver(receiver);
                 
                 User sender = request.getSender();
-                friendsSender.add(receiver);
-                friendsReceiver.add(sender);
-
-                sender.setFriends(friendsSender);
-                receiver.setFriends(friendsReceiver);
+                sender.getFriends().add(receiver);
+                
+                receiver.getFriends().add(sender);
                 
                 friendshipRequestRepository.save(request);
             } 

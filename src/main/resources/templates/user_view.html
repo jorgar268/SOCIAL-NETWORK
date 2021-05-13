@@ -24,10 +24,16 @@
         <div th:text="${user.getEmail()}">User name here</div>
       </h4>
 
+      
+      <div th:if="${user.getDescription() != null}">
+        <h5 th:text="${user.getDescription}">Descripcion</h5>
+      </div>
+    
       <div th:if="${user != sessionUser && sessionUser.getFriends().contains(user)==true}">
         <h6>Sois amigos</h6>
       </div>
 
+      
       <div th:if="${user.getId() == sessionUser.getId()}">
         <br>
         <a href="/settings">
