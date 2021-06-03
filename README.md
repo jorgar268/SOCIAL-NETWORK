@@ -18,10 +18,6 @@
 
 
 ![Preview](https://res.cloudinary.com/xikilikuada/image/upload/v1622738276/inicio_f4ed7y.png)
-
-
-
 ![Preview](https://res.cloudinary.com/xikilikuada/image/upload/v1622738275/dps_d_inicio_e2zfst.png)
-
 ![Preview](https://res.cloudinary.com/xikilikuada/image/upload/v1622738276/Captura_cnm7bs.png)
-![Preview](https://res.cloudinary.com/xikilikuada/image/upload/v1622738276/Captura_cnm7bs.png)
+![Preview](https://res.cloudinary.com/xikilikuada/image/upload/v1622738276/mascosas_x98e1u.png)
