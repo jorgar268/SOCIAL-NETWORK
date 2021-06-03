@@ -3,6 +3,13 @@
 
 ### La aplicación permite, entre otras funciones, que los usuarios creen publicaciones, lean las publicaciones de otros y establezcan relaciones de amistad con otros usuarios.
 ### Asimismo, nuevos usuarios podrán crear cuentas de usuario.
+Editar nombre de usuario.
+
+Que se muestre : dejar de seguir a un contacto.
+
+Que se muestre el numero de amigos 
+
+Num total de usuarios de la web publicaciones de solicitudes y de publicaciones.
 
 
 
